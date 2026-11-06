@@ -2,6 +2,8 @@
 
 **Lunar Landing Site Navigator · NASA Space Apps Challenge 2026**
 
+**الموقع المنشور:** <https://elhussienysabry.github.io/Lunar-portal/>
+
 موقع عربي ثابت (Static) وتعليمي لشرح تحدّي **Lunar Landing Site Navigator** وبناء أداة قرار لاختيار مواقع الهبوط في القطب الجنوبي للقمر: العلم، البيانات الحقيقية، الرياضيات، هندسة الطاقة والاتصالات، تجربة المستخدم، والتنفيذ.
 
 > **إخلاء مسؤولية:** هذا مشروع تعليمي مستقل، وليس منتجًا رسميًا من NASA ولا تابعًا لها. لا يستخدم شعار NASA ولا يدّعي اعتمادًا رسميًا. النقاط الثلاث في الموقع **نقاط تحليل مشتقة** من نماذج ارتفاع LOLA، وليست مواقع هبوط رسمية أو مرشحة من ناسا.
@@ -347,6 +349,7 @@ LOLA GeoTIFF (5 m/px)
 ## 12. النشر على GitHub Pages
 
 - **المستودع:** <https://github.com/elhussienysabry/Lunar-portal>
+- **الرابط العام:** <https://elhussienysabry.github.io/Lunar-portal/>
 - **الاستضافة:** GitHub Pages لمستودع عام، مع HTTPS تلقائي ونشر من GitHub Actions. لا حاجة إلى خادم أو قاعدة بيانات أو مفاتيح.
 - **سير العمل:** `.github/workflows/pages.yml`، ويعمل عند كل `push` إلى الفرع `main` أو يدويًا عبر `workflow_dispatch`.
 - **البناء:** Python 3.12 + `requirements.txt`، ثم `python _src/build.py` مع ضبط `SITE_URL` من ناتج `actions/configure-pages`.
