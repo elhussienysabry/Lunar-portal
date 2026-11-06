@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ page.title }} — {{ site.title }}</title>
+<title>{% if page.title == site.title %}{{ site.title }}{% else %}{{ page.title }} — {{ site.title }}{% endif %}</title>
 <meta name="description" content="{{ page.desc or site.desc }}">
 <meta name="theme-color" content="#05090f">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ page.title }} — {{ site.title }}">
+<meta property="og:title" content="{% if page.title == site.title %}{{ site.title }}{% else %}{{ page.title }} — {{ site.title }}{% endif %}">
 <meta property="og:description" content="{{ page.desc or site.desc }}">
 <meta property="og:image" content="assets/img/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">

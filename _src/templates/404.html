@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>الصفحة غير موجودة — {{ site.title }}</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/style.css">
-<script defer src="assets/js/app.js"></script>
+<link rel="icon" href="{{ base }}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{ base }}assets/css/style.css">
+<script defer src="{{ base }}assets/js/app.js"></script>
 </head>
 <body class="page-404">
 <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
 <header class="site-header"><div class="header-inner">
-  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-opacity=".25"/><circle cx="24" cy="24" r="10" fill="#173a5a"/><circle cx="33" cy="14" r="2" fill="#5ad8e6"/></svg></span><span class="brand-text"><strong>مُوجِّه الهبوط القمري</strong><small>LUNAR LANDING NAVIGATOR</small></span></a>
-  <a class="btn btn-ghost" href="index.html">الرئيسية</a>
+  <a class="brand" href="{{ base }}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-opacity=".25"/><circle cx="24" cy="24" r="10" fill="#173a5a"/><circle cx="33" cy="14" r="2" fill="#5ad8e6"/></svg></span><span class="brand-text"><strong>مُوجِّه الهبوط القمري</strong><small>LUNAR LANDING NAVIGATOR</small></span></a>
+  <a class="btn btn-ghost" href="{{ base }}index.html">الرئيسية</a>
 </div></header>
 <main id="main" class="error-page">
   <div class="container">
@@ -21,9 +21,9 @@
     <h1>هذه الصفحة ليست على الخريطة.</h1>
     <p class="lead">قد يكون الرابط قديمًا أو مكتوبًا خطأً. جرّب البحث، أو ابدأ من أحد الأقسام الأساسية.</p>
     <div class="error-actions">
-      <a class="btn btn-primary" href="index.html">العودة إلى الرئيسية</a>
-      <a class="btn btn-ghost" href="labs.html">فتح المختبرات</a>
-      <a class="btn btn-ghost" href="sources.html">المصادر</a>
+      <a class="btn btn-primary" href="{{ base }}index.html">العودة إلى الرئيسية</a>
+      <a class="btn btn-ghost" href="{{ base }}labs.html">فتح المختبرات</a>
+      <a class="btn btn-ghost" href="{{ base }}sources.html">المصادر</a>
     </div>
     <div class="error-coords mono">SELENOGRAPHIC · 90°S · NO FIX</div>
   </div>

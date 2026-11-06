@@ -432,7 +432,9 @@ def main():
     env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=select_autoescape(["html"]))
     page404 = dict(slug="404", title="الصفحة غير موجودة", kicker="404", lead="الرابط الذي تبحث عنه غير موجود.",
                    desc="404", section="", nav="", toc=False, hero=True, readMin=0, sourceCount=0)
-    html404 = env.get_template("404.html").render(page=page404, site=SITE, nav=NAV, pages=PAGES)
+    site_url = os.environ.get("SITE_URL", "").strip().rstrip("/")
+    base = f"{site_url}/" if site_url else "/"
+    html404 = env.get_template("404.html").render(page=page404, site=SITE, nav=NAV, pages=PAGES, base=base)
     (ROOT / "404.html").write_text(html404, encoding="utf-8")
 
     n = build_search_index(rendered)
