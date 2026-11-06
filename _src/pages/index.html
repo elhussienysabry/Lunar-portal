@@ -1,0 +1,161 @@
+{% set S = sites.sites %}
+<section class="home-hero">
+  <div class="home-hero-bg" aria-hidden="true"></div>
+  <div class="container-wide">
+    <div class="hero-split">
+      <div class="hero-copy">
+        <p class="kicker"><span class="dot"></span>NASA SPACE APPS 2026 · LUNAR LANDING SITE NAVIGATOR</p>
+        <h1>أين تهبط؟<br><span class="grad">ومتى تشرق الشمس؟</span></h1>
+        <p class="lead">
+          دليل عربي تفاعلي لاختيار مواقع الهبوط في القطب الجنوبي للقمر: العلم، البيانات الحقيقية،
+          الرياضيات، هندسة الطاقة والاتصالات، وكيف تبني أداة قرار في 48 ساعة.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="challenge.html">ابدأ بفهم التحدي <span aria-hidden="true">←</span></a>
+          <a class="btn btn-ghost" href="labs.html">افتح المختبرات</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>3</b><span>نقاط تضاريس حقيقية من LOLA</span></div>
+          <div class="hero-stat"><b>8,760</b><span>ساعة من JPL Horizons</span></div>
+          <div class="hero-stat"><b>15</b><span>مكوّنًا تفاعليًا</span></div>
+        </div>
+      </div>
+
+      <div class="hero-map">
+        <div class="hero-map-head">
+          <span>LOLA SOUTH POLAR TERRAIN</span>
+          <span class="live">بيانات حقيقية</span>
+        </div>
+        <div class="hero-map-body">
+          <img src="assets/img/map_mosaic.jpg" alt="فسيفساء تضاريس حقيقية للقطب الجنوبي للقمر من بيانات LOLA، مع مواقع ثلاث نقاط تحليل" data-eager>
+          <span class="map-marker green" style="left:30.089%;top:65.773%" title="قمة حافة الاتصال"></span>
+          <span class="map-label" style="left:30.089%;top:65.773%">حافة الاتصال</span>
+          <span class="map-marker" style="left:65.536%;top:20.227%;background:#57d7e8" title="نقطة مرتفعة على حافة شاكليتون"></span>
+          <span class="map-label" data-site="site04-peak" aria-label="نقطة مرتفعة على حافة شاكليتون" style="left:65.536%;top:20.227%"><span class="label-full">نقطة مرتفعة على حافة شاكليتون</span><span class="label-short">نقطة مرتفعة</span></span>
+          <span class="map-marker amber" style="left:67.857%;top:15.909%" title="نقطة منخفضة على حافة شاكليتون"></span>
+          <span class="map-label" data-site="site04-low" aria-label="نقطة منخفضة على حافة شاكليتون" style="left:67.857%;top:15.909%"><span class="label-full">نقطة منخفضة على حافة شاكليتون</span><span class="label-short">نقطة منخفضة</span></span>
+          <span class="map-marker crater" style="left:96.5%;top:38.194%" title="فوهة شاكليتون"></span>
+          <span class="map-scale">20 km</span>
+        </div>
+        <div class="hero-map-foot">
+          <span>LOLA / PGDA · نافذة 5 m/px</span>
+          <span class="mono">89.4°S–89.9°S</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-band">
+  <div class="container">
+    <div class="band-head">
+      <div>
+        <p class="kicker"><span class="dot"></span>ملخص التحدي</p>
+        <h2>المشكلة ليست شكل الهبوط، بل نافذة البقاء</h2>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="challenge.html#text">النص الكامل</a>
+    </div>
+    <div class="grid-3">
+      <div class="card accent">
+        <span class="card-kicker">01 · الإضاءة</span>
+        <h3>شمس منخفضة، تضاريس عالية</h3>
+        <p>عند القطب تبقى الشمس قرب الأفق. حافة صغيرة قد تحجبها لأسابيع، وقمة صغيرة قد تحتفظ بها شهورًا. الأفق المحلي هو الساعة الحقيقية.</p>
+      </div>
+      <div class="card accent">
+        <span class="card-kicker">02 · الاتصال</span>
+        <h3>الأرض ليست دائمًا في السماء</h3>
+        <p>ليبراسيون الأرض وتضاريس الموقع يحددان نوافذ الاتصال المباشر. انقطاع طويل يعني تصميمًا مختلفًا للطاقة والبيانات والعمليات.</p>
+      </div>
+      <div class="card accent">
+        <span class="card-kicker">03 · القرار</span>
+        <h3>قارن، لا تعرض رقمًا واحدًا</h3>
+        <p>المخطط يحتاج مقارنة موقع/تاريخ بسرعة، ورؤية أطول فترة ظلام وأطول انقطاع اتصال، لا متوسطًا سنويًا يخفي الخطر.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-band alt">
+  <div class="container">
+    <div class="band-head">
+      <div>
+        <p class="kicker"><span class="dot"></span>كيف يعمل هذا الموقع</p>
+        <h2>من DEM خام إلى قرار قابل للفحص</h2>
+        <p>كل رقم هنا له مسار: مصدر رسمي، معالجة موثقة، ثم عرض تفاعلي. لا اتصال مباشر بواجهات خارجية وقت التشغيل، ولا مفاتيح API.</p>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="data-engineering.html">معمارية البيانات</a>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step"><h3>اجمع</h3><p>LOLA 5 m/px من PGDA، ومواضع الشمس والأرض من JPL Horizons، ونوى SPICE للمرجع.</p></div>
+      <div class="pipe-step"><h3>حوّل</h3><p>إسقاط قطبي موحد، أفق 360°، وتجميع ساعي ويومي. كل خطوة قابلة لإعادة التشغيل.</p></div>
+      <div class="pipe-step"><h3>خزّن</h3><p>JSON صغير + شبكة ارتفاع ثنائية 20 m/px. لا خادم ولا قاعدة بيانات في نسخة الهاكاثون.</p></div>
+      <div class="pipe-step"><h3>اعرض</h3><p>بانوراما، مقاطع، خرائط، وحاسبات. حالات تحميل وخطأ صريحة، ووسوم تميّز الحقيقي من الافتراضي.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-band">
+  <div class="container">
+    <div class="band-head">
+      <div>
+        <p class="kicker"><span class="dot"></span>خريطة المحتوى</p>
+        <h2>ستة عشر قسمًا، من نص التحدي إلى التحقق</h2>
+      </div>
+      <span class="meta-chip">مرتّبة كما طلبت: الفهم أولًا</span>
+    </div>
+    <div class="section-grid">
+      <a class="section-card" href="challenge.html"><span class="sc-letter">A</span><h3>فهم التحدي</h3><p>المستخدمون، المتطلبات، وما لم يُنشر بعد.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="clps.html"><span class="sc-letter">B</span><h3>CLPS والمهام</h3><p>من يهبط، أين، ومتى — وحالة كل مهمة.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="science.html"><span class="sc-letter">C</span><h3>علم القطب</h3><p>الإضاءة، الظلال الدائمة، والجليد.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="power-comms.html"><span class="sc-letter">D</span><h3>الطاقة والاتصالات</h3><p>شمس منخفضة وأرض منخفضة: ميزانيتان.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="coordinates.html"><span class="sc-letter">E</span><h3>الإحداثيات والزمن</h3><p>الإطار، الإسقاط، والتوقيت قبل أي حساب.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="datasets.html"><span class="sc-letter">F</span><h3>مجموعات البيانات</h3><p>LOLA وDiviner وHorizons وSPICE.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="data-engineering.html"><span class="sc-letter">G</span><h3>هندسة البيانات</h3><p>من الملف إلى الخدمة دون كذب.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="models.html"><span class="sc-letter">H</span><h3>النماذج الحسابية</h3><p>المعادلات، الافتراضات، وميزانية الخطأ.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="ux.html"><span class="sc-letter">I</span><h3>تجربة المستخدم</h3><p>ثلاثة مستخدمين، وقرار واحد واضح.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="landscape.html"><span class="sc-letter">J</span><h3>المشهد التنافسي</h3><p>QuickMap وMoon Trek وHorizons: أين الفجوة؟</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="stack.html"><span class="sc-letter">K</span><h3>التقنيات</h3><p>خيارات الهاكاثون والإنتاج، ومبرراتها.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="roadmap.html"><span class="sc-letter">L</span><h3>خارطة الطريق</h3><p>48 ساعة، ومخاطر، ومعايير قبول.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="mvp.html"><span class="sc-letter">M</span><h3>MVP مقابل المتقدم</h3><p>ما نبنيه، وما نؤجله، وما لا نبنيه.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="validation.html"><span class="sc-letter">N</span><h3>التحقق والثقة</h3><p>اختبارات، حدود، وميزانية خطأ.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="glossary.html"><span class="sc-letter">O</span><h3>المسرد</h3><p>130 مصطلحًا عربيًا وإنجليزيًا تفاعليًا.</p><span class="sc-arrow">←</span></a>
+      <a class="section-card" href="learn.html"><span class="sc-letter">P</span><h3>مسار التعلّم</h3><p>ست وحدات، تمارين، ومشروع ختامي.</p><span class="sc-arrow">←</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section-band alt">
+  <div class="container">
+    <div class="band-head">
+      <div>
+        <p class="kicker"><span class="dot"></span>جرّب الآن</p>
+        <h2>ثلاثة مداخل سريعة</h2>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="labs.html">كل المختبرات</a>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card"><span class="idx">LAB 02</span><h3>مستكشف المواقع</h3><p>اختر واحدة من ثلاث نقاط حقيقية، وقارن الإضاءة ورؤية الأرض وأطول فترات الظلام على خريطة LOLA.</p><a class="btn btn-soft btn-sm" href="labs.html#lab-explorer">افتح المستكشف</a></div>
+      <div class="feature-card"><span class="idx">LAB 08</span><h3>مقارنة السيناريوهات</h3><p>غيّر أوزان الإضاءة والاتصال والميل والظلام، واعرف أي موقع يتصدر — مع حدود التقييم.</p><a class="btn btn-soft btn-sm" href="labs.html#lab-compare">قارن</a></div>
+      <div class="feature-card"><span class="idx">LAB 03</span><h3>بانوراما الشمس والأرض</h3><p>شاهد أفق التضاريس 360°، وحرّك الزمن على مدار سنة كاملة لترى متى تُحجب الشمس والأرض.</p><a class="btn btn-soft btn-sm" href="science.html#lab-horizon">افتح البانوراما</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-band">
+  <div class="container">
+    <div class="honesty">
+      <div>
+        <p class="kicker"><span class="dot"></span>الشفافية قبل الجمال</p>
+        <h2>ما هو حقيقي؟ وما هو محسوب؟ وما هو افتراضي؟</h2>
+        <p>هذا مشروع تعليمي مستقل، وليس منتجًا رسميًا من ناسا. البيانات التضاريسية والفلكية حقيقية، لكن النقاط الثلاث مشتقة من نماذج DEM وليست مواقع هبوط رسمية معتمدة.</p>
+        <p><a href="sources.html#method">اقرأ منهجية الوسوم والمصادر</a> · <a href="validation.html#limits">حدود النموذج</a></p>
+      </div>
+      <ul>
+        <li><b>REAL</b><span>DEM من LOLA 5 m/px، ومواضع الشمس/الأرض من JPL Horizons 2026-11-01 إلى 2027-11-01.</span></li>
+        <li><b>DERIVED</b><span>الأفق، نسب الإضاءة، أطول ظلام، ونوافذ الاتصال — محسوبة من البيانات أعلاه.</span></li>
+        <li><b>ASSUMED</b><span>كفاءة الألواح، درجة حرارة الضجيج، هوامش التصميم: مدخلات المستخدم، لا حقائق قمرية.</span></li>
+        <li><b>NOT BUILT</b><span>لا نموذج حراري، لا تحقق طيران، لا استيراد DEM مخصص، ولا توصية هبوط رسمية.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>

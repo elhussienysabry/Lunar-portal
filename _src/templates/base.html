@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title }} — {{ site.title }}</title>
+<meta name="description" content="{{ page.desc or site.desc }}">
+<meta name="theme-color" content="#05090f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page.title }} — {{ site.title }}">
+<meta property="og:description" content="{{ page.desc or site.desc }}">
+<meta property="og:image" content="assets/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/ibm-plex-sans-arabic-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/labs.js"></script>
+<script defer src="assets/js/labs-tools.js"></script>
+<script defer src="assets/js/labs-content.js"></script>
+</head>
+<body class="page-{{ page.slug }}">
+<a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="{{ site.title }} — الرئيسية">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img"><title>شعار القمر والمدار</title>
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-opacity=".22"/>
+          <ellipse cx="24" cy="24" rx="21" ry="8" fill="none" stroke="currentColor" stroke-opacity=".55" transform="rotate(-28 24 24)"/>
+          <circle cx="24" cy="24" r="11.5" fill="url(#g)"/>
+          <circle cx="35.5" cy="12.5" r="2.1" fill="#5ad8e6"/>
+          <defs><radialGradient id="g" cx="35%" cy="30%"><stop offset="0" stop-color="#b9f3fa"/><stop offset=".55" stop-color="#4c8dff"/><stop offset="1" stop-color="#123a63"/></radialGradient></defs>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>مُوجِّه الهبوط القمري</strong>
+        <small>LUNAR LANDING NAVIGATOR</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="التنقل الرئيسي">
+      {% for item in nav %}
+        {% set active = (page.nav == item.slug) or (item.children and page.slug in item.children) %}
+        {% if item.children %}
+        <div class="nav-item has-menu">
+          <a class="nav-link {{ 'is-active' if active }}" href="{{ item.slug }}.html">{{ item.label }}
+            <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8l4-3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <div class="nav-menu" role="group" aria-label="{{ item.label }}">
+            {% for child in item.children %}
+              {% set cp = page_map[child] %}
+              <a href="{{ child }}.html" class="{{ 'is-current' if page.slug == child }}">
+                <span class="nm-letter">{{ cp.section }}</span>
+                <span><strong>{{ cp.title }}</strong><small>{{ cp.kicker }}</small></span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <a class="nav-link {{ 'is-active' if active }}" href="{{ item.slug }}.html">{{ item.label }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="header-actions">
+      <button class="search-btn" type="button" data-search-open aria-label="فتح البحث">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>بحث</span><kbd>Ctrl K</kbd>
+      </button>
+      <button class="menu-btn" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileDrawer" data-menu-open>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer" hidden>
+  <div class="drawer-head">
+    <span class="kicker">الأقسام</span>
+    <button class="icon-btn" type="button" data-menu-close aria-label="إغلاق القائمة">✕</button>
+  </div>
+  <nav aria-label="التنقل للجوال">
+    {% for item in nav %}
+      {% if item.children %}
+      <details class="drawer-group">
+        <summary>{{ item.label }}<span>{{ item.children|length }}</span></summary>
+        {% for child in item.children %}{% set cp = page_map[child] %}
+          <a href="{{ child }}.html" class="{{ 'is-current' if page.slug == child }}"><b>{{ cp.section }}</b> {{ cp.title }}</a>
+        {% endfor %}
+      </details>
+      {% else %}
+      <a class="drawer-link" href="{{ item.slug }}.html">{{ item.label }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+  <div class="drawer-foot">
+    <p>مشروع تعليمي مستقل لتحدّي NASA Space Apps 2026.</p>
+    <button class="btn btn-ghost btn-block" type="button" data-search-open>بحث في الموقع</button>
+  </div>
+</div>
+<div class="drawer-scrim" data-menu-close hidden></div>
+
+<main id="main">
+{% if page.hero != false %}
+<section class="page-hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+      {% if page.section %}<div class="section-mark" aria-hidden="true">{{ page.section }}</div>{% endif %}
+      <div class="page-hero-copy">
+        <p class="kicker"><span class="dot"></span>{{ page.kicker }}</p>
+        <h1>{{ page.title }}</h1>
+        <p class="lead">{{ page.lead }}</p>
+        <div class="meta-row">
+          {% if page.readMin %}<span class="meta-chip"><span class="mono">{{ page.readMin }}</span> دقيقة قراءة</span>{% endif %}
+          {% if page.sourceCount %}<span class="meta-chip"><span class="mono">{{ page.sourceCount }}</span> مصدرًا موثقًا</span>{% endif %}
+          <span class="meta-chip">آخر تحديث <span class="mono">{{ site.buildDate }}</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.toc and toc %}
+<div class="container page-layout">
+  <article class="prose" id="content">
+    {{ content }}
+    {% if prev_page or next_page %}
+    <nav class="page-nav" aria-label="التنقل بين الصفحات">
+      {% if prev_page %}<a class="pn prev" href="{{ prev_page.slug }}.html"><small>السابق · {{ prev_page.section }}</small><strong>{{ prev_page.title }}</strong></a>{% endif %}
+      {% if next_page %}<a class="pn next" href="{{ next_page.slug }}.html"><small>التالي · {{ next_page.section }}</small><strong>{{ next_page.title }}</strong></a>{% endif %}
+    </nav>
+    {% endif %}
+  </article>
+  <aside class="toc-wrap">
+    <nav class="toc" aria-label="محتويات الصفحة">
+      <div class="toc-head"><span>في هذه الصفحة</span><button class="icon-btn small" type="button" data-copy-link aria-label="نسخ رابط الصفحة" title="نسخ رابط الصفحة">⧉</button></div>
+      <ol>
+        {% for h in toc %}
+        <li class="toc-l{{ h.level }}"><a href="#{{ h.id }}">{{ h.text }}</a></li>
+        {% endfor %}
+      </ol>
+      <div class="toc-foot">
+        <a href="sources.html">كل المصادر <span aria-hidden="true">←</span></a>
+      </div>
+    </nav>
+  </aside>
+</div>
+{% elif page.slug in ['index','labs','search'] %}
+{{ content }}
+{% else %}
+<div class="container prose">{{ content }}</div>
+{% endif %}
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand small" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-opacity=".25"/><circle cx="24" cy="24" r="10" fill="#173a5a"/><circle cx="33" cy="14" r="2" fill="#5ad8e6"/></svg>
+        </span>
+        <span class="brand-text"><strong>مُوجِّه الهبوط القمري</strong><small>LUNAR LANDING NAVIGATOR</small></span>
+      </a>
+      <p>دليل عربي لبناء أداة تقارن مواقع الهبوط القمرية وفق الإضاءة والطاقة ورؤية الأرض — انطلاقًا من تحدّي NASA Space Apps 2026.</p>
+      <p class="fine">مشروع تعليمي مستقل. ليس منتجًا رسميًا من ناسا ولا يمثلها. أرقام المهام بتاريخ {{ site.buildDate }}.</p>
+    </div>
+    <div>
+      <h2 class="footer-h">الأقسام</h2>
+      <ul class="footer-list">
+        <li><a href="challenge.html">فهم التحدي</a></li>
+        <li><a href="science.html">علم القطب الجنوبي</a></li>
+        <li><a href="datasets.html">مجموعات البيانات</a></li>
+        <li><a href="models.html">النماذج الحسابية</a></li>
+        <li><a href="labs.html">المختبرات</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-h">البناء والتعلّم</h2>
+      <ul class="footer-list">
+        <li><a href="data-engineering.html">هندسة البيانات</a></li>
+        <li><a href="stack.html">التقنيات</a></li>
+        <li><a href="roadmap.html">خارطة الطريق</a></li>
+        <li><a href="validation.html">التحقق</a></li>
+        <li><a href="learn.html">مسار التعلّم</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-h">الشفافية</h2>
+      <ul class="footer-list">
+        <li><a href="sources.html">المصادر والمراجع</a></li>
+        <li><a href="sources.html#method">منهجية الوسوم</a></li>
+        <li><a href="mvp.html#status">حالة كل ميزة</a></li>
+        <li><a href="validation.html#limits">حدود النموذج</a></li>
+        <li><a href="https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/" target="_blank" rel="noopener">صفحة التحدي الرسمية ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 مشروع تعليمي مفتوح · البيانات: NASA LOLA/PGDA، JPL Horizons، NASA PDS · الصور: NASA/GSFC/ASU حيثما ذُكر.</p>
+    <a href="#main" class="back-top">إلى الأعلى ↑</a>
+  </div>
+</footer>
+
+<div class="search-modal" id="searchModal" hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+    <div class="search-top">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <input id="searchInput" type="search" placeholder="ابحث عن مصطلح، موقع، معادلة…" autocomplete="off" aria-label="نص البحث">
+      <button class="icon-btn" type="button" data-search-close aria-label="إغلاق البحث">✕</button>
+    </div>
+    <div class="search-body" id="searchResults">
+      <div class="search-empty">
+        <p class="kicker">بحث سريع</p>
+        <p>اكتب كلمة مثل «شاكليتون»، «الطاقة»، «MOON_ME»، أو «ميزانية الوصلة».</p>
+        <div class="search-suggest"><button type="button" data-q="شاكليتون">شاكليتون</button><button type="button" data-q="الإضاءة">الإضاءة</button><button type="button" data-q="SPICE">SPICE</button><button type="button" data-q="الاتصالات">الاتصالات</button></div>
+      </div>
+    </div>
+    <div class="search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> تنقل</span><span><kbd>Enter</kbd> فتح</span><span><kbd>Esc</kbd> إغلاق</span><a href="search.html">صفحة البحث الكاملة</a></div>
+  </div>
+</div>
+
+<noscript><div class="noscript">هذا الموقع يعمل دون JavaScript للقراءة والمحتوى، لكن المختبرات التفاعلية تحتاج إلى تفعيله.</div></noscript>
+</body>
+</html>

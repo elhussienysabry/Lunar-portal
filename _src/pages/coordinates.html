@@ -1,0 +1,146 @@
+<p class="lead">
+  قبل أي حساب إضاءة أو اتصال، يجب الإجابة عن سؤالين: <strong>أين</strong> بدقة، و<strong>متى</strong> بأي
+  مقياس زمني. خطأ في الإطار أو الإسقاط لا يظهر كخطأ صاخب؛ يظهر كرقم أنيق خاطئ.
+</p>
+
+<h2 id="frames">ثلاثة أشياء لا يجوز خلطها</h2>
+<div class="grid-3">
+  <div class="card"><span class="card-kicker">01</span><h3>الإطار المرجعي</h3><p>محاور يُوصف بها الموضع. القمر يدور، فالإطار المرتبط بالسطح ليس الإطار المرتبط بالنجوم. SPICE تسمي إطارات مثل MOON_ME وMOON_PA [[S17]].</p></div>
+  <div class="card"><span class="card-kicker">02</span><h3>الإسقاط الخرائطي</h3><p>تحويل سطح كروي إلى مستوى. نموذج LOLA القطبي يستخدم إسقاطًا قطبيًا مجسمًا؛ قراءة x,y كأنهما مسافة أفقية بسيطة خطأ شائع.</p></div>
+  <div class="card"><span class="card-kicker">03</span><h3>مقياس الزمن</h3><p>UTC للعرض البشري، لكن الحسابات الفلكية الدقيقة قد تحتاج TDB أو زمنًا قمريًا. لا تخلط بين «ساعة UTC» و«ثانية قمرية».</p></div>
+</div>
+
+<h2 id="latlon">خط العرض: مركزي أم جغرافي؟</h2>
+<p>
+  <strong>خط العرض الكوكبي المركزي (planetocentric)</strong> يُعرّف بمستوى يمر عبر مركز الجسم. أما
+  <strong>الجغرافي (planetographic)</strong> فيُعرّف بمستوى مماس للسطح، ويأخذ تفلطح الجسم في الحسبان.
+  القمر شبه كروي، لذا الفرق صغير، لكنه ليس صفرًا، ويصبح مهمًا عند مقارنة نماذج ومنتجات من مصادر مختلفة.
+  SPICE توفر تحويلات بين الإطارين [[S16],[S17]].
+</p>
+<p>
+  في هذا الموقع نستخدم <strong>خط العرض المركزي الجنوبي</strong> (قيم سالبة) وخط الطول الشرقي من 0° إلى 360°.
+  عند عرض الموقع نكتب <code>89.4389°S, 222.8683°E</code>، ولا نستبدل الجنوب بشمال أو نعيد خط الطول إلى
+  نطاق −180..180 دون تصريح.
+</p>
+
+<h2 id="projection">الإسقاط القطبي المستخدم</h2>
+<p>
+  نماذج PGDA المحلية تُبنى على إسقاط قطبي مجسم. العلاقة التقريبية المستخدمة هنا:
+</p>
+<div class="formula">
+  <span class="eq">ρ = 2 R tan( (90° + φ) / 2 )</span>
+  <span class="eq">x = ρ sin λ</span>
+  <span class="eq">y = ρ cos λ</span>
+  <span class="note">φ: خط العرض (سالب جنوبًا)، λ: خط الطول الشرقي، R = 1,737.4 km، ρ: المسافة من القطب.</span>
+</div>
+<p>
+  وبالعكس:
+</p>
+<div class="formula">
+  <span class="eq">φ = 90° − 2 atan( ρ / (2R) )</span>
+  <span class="eq">λ = atan2(x, y)</span>
+</div>
+<p>
+  لاحظ أن <code>y</code> يتجه نحو خط الطول 0°، و<code>x</code> نحو الشرق. إذا رسمت الخريطة على الشاشة،
+  فأنت تختار أين يكون الشمال؛ لا تخلط بين اتجاه الشاشة واتجاه السمت الحقيقي. في حساب الأفق، ندور
+  من إطار الخريطة إلى الشمال الحقيقي عند خط طول الراصد قبل تتبع الشعاع.
+</p>
+<div class="callout warn">
+  <span class="co-title">تحقق عددي</span>
+  نقطة Site01 في بياناتنا: <code>x = −11,575 m</code>، <code>y = −12,470 m</code>. المسافة من القطب
+  <code>ρ ≈ 17.014 km</code>، وخط العرض <code>≈ 89.4389°S</code>، وخط الطول <code>≈ 222.8683°E</code>.
+  هذه ليست أرقامًا «مستديرة»؛ إنها ناتج التحويل نفسه، وتُستخدم للتحقق من الإسقاط [[S9]].
+</div>
+
+<h2 id="time">الزمن: UTC للعرض، لكن ليس لكل حساب</h2>
+<p>
+  كل طوابع هذا الموقع معروضة بـ <strong>UTC</strong> مع لاحقة <code>Z</code>. هذا واضح للمستخدم، لكنه لا يعني
+  أن كل الحسابات الفلكية تمت بـ UTC. تقويم Horizons نفسه يُنتج مواضع عند أزمنة محددة؛ وعندما تحتاج
+  دقة أعلى، استخدم TDB والنوى المناسبة. الفرق قد يكون أجزاء من الثانية، لكنه يتراكم إذا خلطت
+  بين مصادر بأزمنة مختلفة.
+</p>
+<ul>
+  <li><strong>UTC:</strong> مقياس مدني يعتمد على ثوانٍ كبيسة؛ مناسب للعرض والتسجيل.</li>
+  <li><strong>TDB:</strong> زمن ديناميكي باريومتري؛ مناسب لميكانيكا المدارات.</li>
+  <li><strong>زمن قمري محلي:</strong> يمكن تعريفه، لكنه ليس توقيتًا رسميًا موحدًا للقمر بعد.</li>
+</ul>
+
+<h2>مختبر التحويل: من الإحداثيات إلى الخريطة</h2>
+<p>
+  أدخل خط عرض/طول أو إحداثيات x/y، أو انقر على الخريطة. الأداة تحوّل في الاتجاهين وتعرض المسافة من
+  القطب وأقرب تغطية DEM. جرّب زر «Site01» ثم حرّك النقطة قليلًا: لاحظ كيف تتغير الإحداثيات.
+</p>
+
+<section class="lab" id="lab-coords">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 06 · COORDINATE TRANSFORM</span>
+      <h2>حوّل بين خط العرض/الطول وإسقاط x/y</h2>
+      <p>إسقاط قطبي جنوبي على كرة نصف قطرها 1,737.4 km. النطاق مفيد قرب القطب، لا للقمر كله.</p>
+    </div>
+    <span class="lab-badge">GEOMETRY</span>
+  </div>
+  <div class="lab-body">
+    <div id="coordLoading"></div>
+    <div class="lab-split">
+      <div>
+        <div class="lab-controls" style="margin-bottom:6px">
+          <button class="btn btn-ghost btn-sm" type="button" data-coord-preset="site01">Site01</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-coord-preset="site04-peak">قمة شاكليتون</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-coord-preset="site04-low">حافة منخفضة</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-coord-preset="pole">القطب</button>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label for="coordLat">خط العرض (سالب جنوبًا)</label><input type="number" id="coordLat" value="-89.43891" min="-90" max="90" step="0.00001"></div>
+          <div class="field"><label for="coordLon">خط الطول الشرقي</label><input type="number" id="coordLon" value="222.8683" step="0.0001"></div>
+          <div class="field"><label for="coordX">x (km)</label><input type="number" id="coordX" value="-11.575" step="0.001"></div>
+          <div class="field"><label for="coordY">y (km)</label><input type="number" id="coordY" value="-12.470" step="0.001"></div>
+        </div>
+        <div id="coordError" class="error-box" hidden></div>
+        <div class="readout-grid" style="grid-template-columns:1fr 1fr">
+          <div class="readout"><small>خط العرض</small><b id="coordOutLat">—</b></div>
+          <div class="readout"><small>خط الطول</small><b id="coordOutLon">—</b></div>
+          <div class="readout"><small>x</small><b id="coordOutX">—</b></div>
+          <div class="readout"><small>y</small><b id="coordOutY">—</b></div>
+          <div class="readout"><small>المسافة من القطب</small><b id="coordDist">—</b></div>
+          <div class="readout"><small>زاوية الموضع</small><b id="coordAz">—</b></div>
+        </div>
+        <p class="lab-note">التغطية: <span id="coordCover">—</span></p>
+        <p class="lab-note" id="coordStatus">—</p>
+      </div>
+      <div class="lab-panel">
+        <h4>الخريطة القطبية — انقر لاختيار نقطة</h4>
+        <div class="canvas-wrap polar"><canvas id="coordCanvas" aria-label="خريطة قطبية تفاعلية لاختيار نقطة"></canvas></div>
+        <div class="legend">
+          <span><i style="background:#5ad8e6;border-radius:50%"></i> القطب</span>
+          <span><i style="background:#ffb454;border-radius:50%"></i> نقطتك</span>
+          <span>الحلقات بالكيلومترات</span>
+        </div>
+      </div>
+    </div>
+    <p class="lab-note">
+      الإسقاط تقريبي على كرة. لا يحل محل منتج DEM معاير، ولا يستنتج ارتفاعًا أو ميلًا. النقطة خارج
+      تغطية DEM لا تحصل على تحليل أفق في هذا الموقع.
+    </p>
+  </div>
+</section>
+
+<h2 id="pitfalls">أخطاء شائعة تكلّف أرقامًا</h2>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>الخطأ</th><th>الأثر</th><th>الوقاية</th></tr></thead>
+  <tbody>
+    <tr><td>خلط الشرق والغرب في خط الطول</td><td>انعكاس الموقع حول القطب، وأفق مختلف تمامًا.</td><td>اكتب الاصطلاح صراحة، واختبر نقطة معروفة.</td></tr>
+    <tr><td>استخدام خط العرض الجغرافي مع إسقاط مركزي</td><td>إزاحة صغيرة تزداد قرب القطب.</td><td>وثّق الإطار وحوّل عبر SPICE عند الحاجة.</td></tr>
+    <tr><td>قراءة x,y كأنهما شرق/شمال محليان</td><td>سمت خاطئ عند تتبع الشمس.</td><td>دوّر إلى الشمال الحقيقي عند خط طول الراصد.</td></tr>
+    <tr><td>خلط UTC وTDB</td><td>إزاحة زمنية صغيرة، وقد تكون مهمة في هندسة دقيقة.</td><td>حدد المقياس في كل ملف ومخرج.</td></tr>
+    <tr><td>تجاهل مرجع الارتفاع</td><td>ارتفاع وميل غير متوافقين مع DEM آخر.</td><td>استخدم منتجًا واحدًا أو حوّل الارتفاع صراحةً.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout">
+  <span class="co-title">قاعدة عملية</span>
+  إذا لم تستطع الإجابة عن «أي إطار؟ أي إسقاط؟ أي مرجع ارتفاع؟ أي زمن؟» في سطر واحد لكل منها،
+  فلا تعرض الرقم بعد. هذه ليست بيروقراطية؛ إنها الفرق بين أداة تُستخدم وأداة تُصدّق خطأً.
+</div>

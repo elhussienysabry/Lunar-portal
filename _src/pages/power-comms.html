@@ -1,0 +1,277 @@
+<p class="lead">
+  عند القطب، الطاقة والاتصال ليسا «خدمتين» منفصلتين؛ إنهما نفس مشكلة الهندسة: الشمس منخفضة جدًا،
+  والأرض منخفضة جدًا، والتضاريس تعترض كليهما. من يفهم الزاويتين يستطيع تقدير البقية.
+</p>
+
+<h2 id="solar">الطاقة الشمسية: السطوع موجود، الهندسة سيئة</h2>
+<p>
+  الإشعاع الشمسي عند مسافة القمر قريب من <strong>1,361.6 W/m²</strong> (الثابت الشمسي) [[S41]]. لكن
+  القدرة التي ينتجها لوح لا تساوي الإشعاع × المساحة فقط؛ بل تعتمد على <strong>زاوية السقوط</strong>
+  وكفاءة الخلية ونسبة التعبئة والخسائر. عند القطب، تكون الشمس على ارتفاع 1–2° غالبًا، لذا فإن لوحًا
+  أفقيًا يرى أشعة شبه موازية لسطحه. جيب تمام الزاوية قريب من الصفر.
+</p>
+<div class="formula">
+  <span class="eq">P<sub>dc</sub> ≈ G · A · η · f<sub>pack</sub> · cos θ · (1 − L)</span>
+  <span class="note">G: الإشعاع W/m²، A: مساحة اللوح، η: كفاءة الخلية، θ: زاوية السقوط عن العمودي، L: خسائر.</span>
+</div>
+<p>
+  لهذا تستخدم التصاميم القطبية ألواحًا <strong>عمودية أو متتبعة في السمت</strong>، لا ألواحًا أفقية
+  كالأسطح الأرضية. اللوح المتتبع يبقي محوره قريبًا من اتجاه الشمس بينما تدور حول الأفق. حتى مع ذلك،
+  تبقى زوايا السقوط والتظليل المحلي عوامل حاسمة، ويجب حسابها لنقطة محددة لا لمنطقة عامة.
+</p>
+<div class="callout warn">
+  <span class="co-title">افتراض لا حقيقة</span>
+  حاسبة الطاقة هنا تستخدم «معامل تعرض» مبسطًا (تتبع كامل = 1.0، لوح عمودي ثابت = 0.64، لوح أفقي = 0.05).
+  هذه أرقام تعليمية للتوضيح، وليست مواصفات مصفوفة حقيقية. التصميم الفعلي يحتاج منحنى I–V،
+  ودرجات حرارة الخلايا، وتظليلًا ثلاثي الأبعاد، وتدهورًا زمنيًا.
+</div>
+
+<h3>البطارية والظلام</h3>
+<p>
+  ليست المشكلة متوسط الطاقة اليومي فقط، بل <strong>أطول فترة ظلام متصلة</strong>. إذا كان الموقع يرى
+  الشمس 75% من السنة، فقد يبدو ذلك كافيًا؛ لكن إذا كان أطول ظلام 176 ساعة، فالبطارية يجب أن تغطي
+  الحمل والتدفئة خلالها. والحمل الحراري قد يكون أكبر من حمل الإلكترونيات، خصوصًا في الظل.
+  هذا الموقع لا يحسب التدفئة؛ يعرضها كحدّ صريح.
+</p>
+
+<h2 id="comms">الاتصال المباشر: الأرض ليست قمرًا صناعيًا ثابتًا</h2>
+<p>
+  الأرض تظهر من القطب قرب الأفق، بحجم زاوي أكبر من الشمس (نحو <strong>0.95°</strong>). لكنها تتأرجح
+  بفعل الليبراسيون والحركة المدارية، وقد تحجبها حافة قريبة. الاتصال المباشر بالأرض (DTE) يعتمد على
+  وجود خط رؤية راديوي، لا على «وجود الأرض في السماء» بشكل مطلق.
+</p>
+<p>
+  زمن الانتقال عند متوسط المسافة 384,400 km هو نحو <strong>1.28 ثانية</strong> أحادي الاتجاه. هذا لا يمنع
+  التحكم الآني البسيط، لكنه يجعل العمليات المعتمدة على رد فعل سريع مختلفة عن الأرض. وعلى الجانب البعيد،
+  لا يوجد خط رؤية مباشر أصلًا، لذا تحتاج المهمات إلى مكرر مداري [[S22]].
+</p>
+
+<h3>خسارة الانتشار الحر</h3>
+<div class="formula">
+  <span class="eq">FSPL(dB) = 20 log<sub>10</sub>(4πd / λ)</span>
+  <span class="eq">λ = c / f</span>
+  <span class="note">d: المسافة بالأمتار، λ: الطول الموجي، f: التردد.</span>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>النطاق</th><th>تردد تقريبي</th><th>FSPL عند 384,400 km</th><th>ملاحظة</th></tr></thead>
+  <tbody>
+    <tr><td>S</td><td class="mono">2.2 GHz</td><td class="mono">≈ 211.0 dB</td><td>معدل بيانات أقل، وحزمة هوائي أوسع عادةً.</td></tr>
+    <tr><td>X</td><td class="mono">8.4 GHz</td><td class="mono">≈ 222.6 dB</td><td>شائع للاتصالات العميقة.</td></tr>
+    <tr><td>Ka</td><td class="mono">32 GHz</td><td class="mono">≈ 234.2 dB</td><td>معدلات أعلى، خسارة أكبر.</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="small muted">
+  القيم محسوبة من المعادلة أعلاه عند المسافة المتوسطة، وليست قياسات وصلة. الهوائيات والضوضاء والترميز
+  تغيّر الميزانية النهائية. الوسم: DERIVED.
+</p>
+
+<h2>مختبر الشمس: مقطع حتى الأفق</h2>
+<p>
+  هذا الرسم يقطع التضاريس في اتجاه الشمس من موقعك حتى 9 km. الخط المتقطع هو شعاع الشمس عند ارتفاعها
+  الحالي. إذا مرّ الشعاع تحت سطح التضاريس في أي نقطة، فالشمس محجوبة. الرسم يستخدم شبكة 20 m/px للعرض،
+  بينما قرار الحالة يستخدم أفق 5 m/px.
+</p>
+
+<section class="lab" id="lab-sun">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 04 · SOLAR CROSS-SECTION</span>
+      <h2>هل تصل الشمس إلى هذه النقطة؟</h2>
+      <p>اختر موقعًا وتاريخًا وساعة UTC. راقب ارتفاع الشمس، وأفق التضاريس في سمت الشمس.</p>
+    </div>
+    <span class="lab-badge">REAL + DERIVED</span>
+  </div>
+  <div class="lab-body">
+    <div id="sunLoading"></div>
+    <div class="lab-controls">
+      <div class="field wide"><label for="sunSite">الموقع</label><select id="sunSite"></select></div>
+      <div class="field"><label for="sunDate">التاريخ (UTC)</label><input type="date" id="sunDate" min="2026-11-01" max="2027-10-31" value="2026-12-01"></div>
+      <div class="field wide"><label for="sunHour">الساعة UTC</label><div class="range-row"><input type="range" id="sunHour" min="0" max="23" step="1" value="12"><output id="sunHourOut">12:00Z</output></div></div>
+      <span class="lab-status" id="sunStatus"><span class="dot"></span>تحميل</span>
+    </div>
+    <div class="lab-split">
+      <div class="lab-panel">
+        <h4>قراءات اللحظة</h4>
+        <div class="readout-grid" style="grid-template-columns:1fr 1fr">
+          <div class="readout"><small>ارتفاع الشمس</small><b id="sunEl">—</b></div>
+          <div class="readout"><small>سمت الشمس</small><b id="sunAz">—</b></div>
+          <div class="readout"><small>أفق التضاريس</small><b id="sunHorizon">—</b></div>
+          <div class="readout"><small>الهامش</small><b id="sunMargin">—</b></div>
+          <div class="readout"><small>نصف القطر الزاوي</small><b id="sunRadius">—</b></div>
+          <div class="readout"><small>الحالة</small><b id="sunState">—</b></div>
+        </div>
+        <p class="lab-note" id="sunHover">مرّر فوق المقطع لقراءة المسافة وزاوية الارتفاع.</p>
+        <p class="lab-note"><span id="sunTime">—</span></p>
+      </div>
+      <div class="lab-panel">
+        <h4>مقطع التضاريس باتجاه الشمس — 9 km</h4>
+        <div class="canvas-wrap chart"><canvas id="sunCanvas" aria-label="مقطع تضاريس باتجاه الشمس مع شعاع الشمس"></canvas></div>
+        <div class="legend">
+          <span><i class="line" style="background:#8cd2de"></i> سطح التضاريس</span>
+          <span><i class="dash" style="border-color:#ffb454"></i> شعاع الشمس</span>
+          <span><i style="background:#ffb454;border-radius:50%"></i> قرص الشمس</span>
+        </div>
+      </div>
+    </div>
+    <p class="lab-note">
+      المصدر: LOLA/PGDA [[S9]] + JPL Horizons [[S15]]. المقطع يستخدم 20 m/px (نسخة المتصفح)؛ الحالة
+      والأرقام من أفق 5 m. الشمس تُعد ظاهرة إذا كان مركزها + 0.266° فوق الأفق التضاريسي.
+    </p>
+  </div>
+</section>
+
+<h2>مختبر الأرض: سنة من الرؤية</h2>
+<p>
+  الرسم التالي يحسب، لكل يوم عند 12:00 UTC، هامش الأرض فوق الأفق التضاريسي:
+  <code>earth_el + 0.95° − horizon(az)</code>. الموجب يعني رؤية ممكنة هندسيًا. الشريط الأخضر أعلى
+  الرسم يلخص الأيام الموجبة. حرّك المؤشر لاختيار يوم، وراقب «الوقت المتبقي» التقريبي حتى تغيّر الحالة.
+</p>
+
+<section class="lab" id="lab-earth">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 05 · EARTH VISIBILITY</span>
+      <h2>نوافذ الاتصال المباشر على مدار سنة</h2>
+      <p>ارتفاع الأرض، الأفق في سمت الأرض، والهامش. القيم مشتقة ساعيًا، وتُعرض يوميًا عند الظهيرة UTC.</p>
+    </div>
+    <span class="lab-badge">REAL + DERIVED</span>
+  </div>
+  <div class="lab-body">
+    <div id="earthLoading"></div>
+    <div class="lab-controls">
+      <div class="field wide"><label for="earthSite">الموقع</label><select id="earthSite"></select></div>
+      <div class="field wide"><label for="earthDay">اليوم</label><div class="range-row"><input type="range" id="earthDay" min="0" max="364" step="1" value="3"><output id="earthDayOut">2026-11-04</output></div></div>
+      <span class="lab-status" id="earthStatus"><span class="dot"></span>تحميل</span>
+    </div>
+    <div class="canvas-wrap chart"><canvas id="earthCanvas" aria-label="رسم سنوي لهامش رؤية الأرض فوق الأفق التضاريسي"></canvas></div>
+    <p class="lab-note" id="earthHover">مرّر فوق الرسم لقراءة هامش الأرض في أي يوم.</p>
+    <div class="readout-grid">
+      <div class="readout"><small>ارتفاع الأرض</small><b id="earthEl">—</b></div>
+      <div class="readout"><small>سمت الأرض</small><b id="earthAz">—</b></div>
+      <div class="readout"><small>أفق التضاريس</small><b id="earthHorizon">—</b></div>
+      <div class="readout"><small>الهامش</small><b id="earthMargin">—</b></div>
+      <div class="readout"><small>الحالة</small><b id="earthState">—</b></div>
+      <div class="readout"><small>نسبة الرؤية السنوية</small><b id="earthPct">—</b></div>
+      <div class="readout"><small>أطول انقطاع</small><b id="earthOutage">—</b></div>
+      <div class="readout"><small>أطول نافذة</small><b id="earthWindow">—</b></div>
+      <div class="readout"><small>أيام موجبة عند الظهيرة</small><b id="earthBest">—</b></div>
+      <div class="readout"><small id="earthRemainLabel">حتى تغيّر الحالة</small><b id="earthRemain">—</b></div>
+    </div>
+    <p class="lab-note">
+      «أطول انقطاع» و«أطول نافذة» من حساب ساعي كامل (وليس من الرسم اليومي). الرسم يعرض عينة 12:00 UTC
+      لأغراض القراءة. المصدر: JPL Horizons + LOLA [[S15],[S9]]. راجع القسم N لحدود النموذج.
+    </p>
+  </div>
+</section>
+
+<h2>مختبر الطاقة: ميزانية مبسطة</h2>
+<section class="lab" id="lab-power">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 09 · POWER BUDGET</span>
+      <h2>هل تكفي الألواح والبطارية؟</h2>
+      <p>مدخلاتك افتراضات هندسية. النتيجة تعليمية وليست تصميمًا طيرانًا. جرّب تغيير المساحة والحمل.</p>
+    </div>
+    <span class="lab-badge sim">SIMULATED INPUTS</span>
+  </div>
+  <div class="lab-body">
+    <div id="pwLoading"></div>
+    <div class="lab-controls">
+      <div class="field wide"><label for="pwSite">الموقع</label><select id="pwSite"></select></div>
+      <div class="field"><label for="pwArea">مساحة المصفوفة (m²)</label><input type="number" id="pwArea" value="4" min="0.1" step="0.1"></div>
+      <div class="field"><label for="pwEff">كفاءة الخلية (%)</label><input type="number" id="pwEff" value="29" min="1" max="50" step="1"></div>
+      <div class="field"><label for="pwPacking">نسبة التعبئة (%)</label><input type="number" id="pwPacking" value="90" min="10" max="100" step="1"></div>
+      <div class="field"><label for="pwIncidence">طريقة التعرض</label>
+        <select id="pwIncidence">
+          <option value="1">تتبع سمتوي كامل (مثالي)</option>
+          <option value="0.64">لوح عمودي ثابت</option>
+          <option value="0.05">لوح أفقي</option>
+        </select>
+      </div>
+      <div class="field"><label for="pwLoad">حمل مستمر (W)</label><input type="number" id="pwLoad" value="300" min="0" step="10"></div>
+      <div class="field"><label for="pwBattery">سعة البطارية (kWh)</label><input type="number" id="pwBattery" value="10" min="0" step="0.5"></div>
+      <div class="field"><label for="pwLoss">خسائر النظام (%)</label><input type="number" id="pwLoss" value="20" min="0" max="90" step="1"></div>
+      <span class="lab-status" id="pwStatus"><span class="dot"></span>تحميل</span>
+    </div>
+    <div class="readout-grid">
+      <div class="readout"><small>قدرة المصفوفة لحظيًا</small><b id="pwGen">—</b></div>
+      <div class="readout"><small>متوسط الطاقة (kWh/day)</small><b id="pwEnergy">—</b></div>
+      <div class="readout"><small>حمل/day</small><b id="pwLoadE">—</b></div>
+      <div class="readout"><small>الصافي/day</small><b id="pwMargin">—</b></div>
+      <div class="readout"><small>حاجة البطارية لأطول ظلام</small><b id="pwNeed">—</b></div>
+      <div class="readout"><small>سعتك</small><b id="pwBatteryOut">—</b></div>
+      <div class="readout"><small>إضاءة الموقع</small><b id="pwSunPct">—</b></div>
+      <div class="readout"><small>أطول ظلام</small><b id="pwDarkH">—</b></div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="compare-bars">
+        <div class="cbar"><span>توليد</span><div class="track"><div class="fill" id="pwGenBar" style="width:0"></div></div><b id="pwGenBarLabel">—</b></div>
+        <div class="cbar"><span>حمل</span><div class="track"><div class="fill" id="pwUseBar" style="width:0;background:linear-gradient(90deg,#ffb454,#ff7373)"></div></div><b id="pwUseBarLabel">—</b></div>
+      </div>
+    </div>
+    <p class="card" style="margin-top:12px;padding:11px"><strong>الحكم: </strong><span id="pwVerdict">—</span></p>
+    <p class="lab-note">
+      يستخدم الموقع نسبة الإضاءة السنوية من LOLA/Horizons، وأطول ظلام لحساب البطارية. لا يحسب منحنى الحمل،
+      ولا التدفئة، ولا تدهور الألواح، ولا زاوية السقوط اللحظية. <strong>الموقع:</strong> <span id="pwSiteOut">—</span>.
+    </p>
+  </div>
+</section>
+
+<h2>مختبر الوصلة: من الواط إلى Eb/N0</h2>
+<section class="lab" id="lab-link">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 10 · LINK BUDGET</span>
+      <h2>هل تصل الإشارة؟ وبأي هامش؟</h2>
+      <p>حساب أحادي الاتجاه مع FSPL وضوضاء حرارية. عدّل التردد والهوائيات ومعدل البيانات.</p>
+    </div>
+    <span class="lab-badge sim">ENGINEERING MODEL</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-controls">
+      <div class="field"><label for="lkBand">النطاق</label>
+        <select id="lkBand"><option value="2.2">S — 2.2 GHz</option><option value="8.4" selected>X — 8.4 GHz</option><option value="32">Ka — 32 GHz</option></select>
+      </div>
+      <div class="field"><label for="lkPower">قدرة الإرسال (W)</label><input type="number" id="lkPower" value="20" min="0.001" step="1"></div>
+      <div class="field"><label for="lkGtx">كسب هوائي الإرسال (dBi)</label><input type="number" id="lkGtx" value="35" step="0.5"></div>
+      <div class="field"><label for="lkGrx">كسب هوائي الاستقبال (dBi)</label><input type="number" id="lkGrx" value="40" step="0.5"></div>
+      <div class="field"><label for="lkDist">المسافة (km)</label><input type="number" id="lkDist" value="384400" min="1" step="1000"></div>
+      <div class="field"><label for="lkRate">معدل البيانات (kb/s)</label><input type="number" id="lkRate" value="100" min="0.001" step="1"></div>
+      <div class="field"><label for="lkTemp">حرارة ضجيج النظام (K)</label><input type="number" id="lkTemp" value="300" min="1" step="10"></div>
+      <div class="field"><label for="lkLoss">خسائر إضافية (dB)</label><input type="number" id="lkLoss" value="3" min="0" step="0.5"></div>
+      <div class="field"><label for="lkEb">Eb/N0 المطلوب (dB)</label><input type="number" id="lkEb" value="3" step="0.5"></div>
+      <span class="lab-status" id="lkStatus"><span class="dot"></span>جاهز</span>
+    </div>
+    <div class="readout-grid">
+      <div class="readout"><small>التردد</small><b id="lkFreq">—</b></div>
+      <div class="readout"><small>EIRP</small><b id="lkEirp">—</b></div>
+      <div class="readout"><small>FSPL</small><b id="lkFspl">—</b></div>
+      <div class="readout"><small>القدرة المستقبلة</small><b id="lkPrx">—</b></div>
+      <div class="readout"><small>ضجيج النظام</small><b id="lkNoise">—</b></div>
+      <div class="readout"><small>Eb/N0</small><b id="lkEbn0">—</b></div>
+      <div class="readout"><small>الهامش</small><b id="lkMargin">—</b></div>
+      <div class="readout"><small>أقصى معدل تقريبي</small><b id="lkMax">—</b></div>
+    </div>
+    <p class="lab-note" id="lkLt">—</p>
+    <p class="card" style="margin-top:10px;padding:11px"><strong>الحكم: </strong><span id="lkVerdict">—</span></p>
+    <p class="lab-note">
+      الافتراضات: عرض نطاق = 1.25 × معدل البيانات، ضجيج حراري kTB، لا تداخل، ولا فقدان غلاف جوي قمري.
+      الهوائيات وكسبها مدخلات افتراضية. لا تستخدم النتيجة لتصميم وصلة حقيقية دون نمذجة وتجربة.
+    </p>
+  </div>
+</section>
+
+<h2 id="limits">ما الذي لا تحسبه هذه الأدوات؟</h2>
+<ul class="checklist cross">
+  <li>التدفئة والتكييف والطاقة اللازمة لإبقاء الإلكترونيات ضمن حرارة التشغيل.</li>
+  <li>تظليل الألواح بواسطة جسم المركبة أو الغبار أو التضاريس القريب جدًا.</li>
+  <li>تدهور الخلايا والبطاريات مع الزمن، وسلوكها في البرد القارس.</li>
+  <li>التداخل الراديوي، الاستقطاب، ومعايرة الهوائي الفعلية.</li>
+  <li>احتمالية الطقس الفضائي أو الأعطال؛ هذه ليست أداة تحليل موثوقية.</li>
+</ul>
+<p>
+  الغرض هو بناء حدس صحيح ومقارنة سريعة، لا اعتماد تشغيلي. كل بطاقة نتيجة يجب أن تُقرأ مع افتراضاتها.
+  هذا هو الفرق بين نموذج مفيد وواجهة تُوهم بالدقة [[S27]].
+</p>

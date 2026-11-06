@@ -1,0 +1,62 @@
+{
+  "schema": 2,
+  "generated": "2026-11-04T16:30Z",
+  "scope": "Derived data products written by build_data.py. manifest.json and site build artifacts (search.json, glossary.json) are excluded.",
+  "files": [
+    {
+      "name": "daily_site01.json",
+      "bytes": 63147,
+      "sha256": "fb050e3e8a87c5ff96b79255f6e9cab266a05aac1e6d11ce14f4c3a424c44746"
+    },
+    {
+      "name": "daily_site04-low.json",
+      "bytes": 62901,
+      "sha256": "d83b28dc7af0bbee3f8ad0805b1256549f1e3d0970ae53ecbdfafd88872c5b3c"
+    },
+    {
+      "name": "daily_site04-peak.json",
+      "bytes": 63046,
+      "sha256": "096460932e14503a14bb5315edc17f38c4333f21e6e507ce8f5fe7f725a8e645"
+    },
+    {
+      "name": "dem_site01.bin",
+      "bytes": 1280000,
+      "sha256": "e7f3171a065deb8ef642c67caa4834932cdd839ee616fad34579a1008785e4c8"
+    },
+    {
+      "name": "dem_site01.json",
+      "bytes": 317,
+      "sha256": "73592456d75aa13fcbddd80f8920245624fc297dc6dc3dff5e87b3184aaba7e1"
+    },
+    {
+      "name": "dem_site04.bin",
+      "bytes": 1280000,
+      "sha256": "11221607568856c721279853c7bfb632c389f14a432554fd71e8d2538064dbd8"
+    },
+    {
+      "name": "dem_site04.json",
+      "bytes": 315,
+      "sha256": "ccb95fdfd0c004482090e3495ca65e6599b567c015eda4027ca8a231e2894166"
+    },
+    {
+      "name": "ephemeris_site01.json",
+      "bytes": 197335,
+      "sha256": "5c69f439336bdb2f0b54028cdf054cb4c353101ee197be084628bdf23e0f81c8"
+    },
+    {
+      "name": "ephemeris_site04-low.json",
+      "bytes": 197165,
+      "sha256": "382f535180fe3120aeda1356849824dc4b3ff526b9bedaee2a5b7908854462a2"
+    },
+    {
+      "name": "ephemeris_site04-peak.json",
+      "bytes": 197251,
+      "sha256": "48ef05d01848a66632dc43757ddd0fdbd533e4c16fe7310a5f4ceba980439e30"
+    },
+    {
+      "name": "sites.json",
+      "bytes": 27551,
+      "sha256": "c981baaa39c19c98e56684fa85b5ec1c176eb53f99305809fc5ec214250e95c5"
+    }
+  ]
+}

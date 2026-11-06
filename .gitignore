@@ -1,0 +1,31 @@
+# Generated site output (rebuilt by _src/build.py / GitHub Actions)
+/*.html
+/robots.txt
+/sitemap.xml
+/assets/css/
+/assets/js/
+/assets/fonts/
+/assets/img/favicon.svg
+/assets/data/search.json
+/assets/data/glossary.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local tooling and editor files
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!.env.example
+node_modules/
+.vscode/
+.idea/
+
+# Test / coverage artifacts
+coverage/
+.pytest_cache/

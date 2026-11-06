@@ -1,0 +1,110 @@
+<p class="lead">
+  البيانات الجيدة لا تُقاس بحجمها، بل بمعرفة ما تمثله وما لا تمثله. هنا كتالوج المصادر التي بني عليها
+  هذا الموقع، مع الصيغة والدقة والحدود، ثم مختبر يشرح بنية كل منتج دون ادعاء أنه ملفه الأصلي.
+</p>
+
+<h2 id="inventory">ما استخدمناه فعلًا — وما لم نستخدمه</h2>
+<div class="callout ok">
+  <span class="co-title">بيانات حقيقية في النسخة الحالية</span>
+  نموذجا DEM بدقة 5 m/px من LOLA/PGDA لنافذتي Site01 وSite04، وتقويم ساعي للشمس والأرض من JPL Horizons
+  من 2026-11-01 إلى 2027-11-01 لثلاث نقاط. كل الأرقام المشتقة في الموقع مبنية عليهما [[S9],[S15]].
+</div>
+<div class="grid-3">
+  <div class="card"><span class="card-kicker">مستخدم</span><h3>LOLA + Horizons</h3><p>تضاريس، أفق، إضاءة، رؤية أرض، طاقة، واتصال. هذه هي العمود الفقري.</p></div>
+  <div class="card"><span class="card-kicker">سياق</span><h3>Diviner وLROC وSVS</h3><p>تفسير حراري، صور مرجعية، ومنتجات مرئية. لم تدخل في الحسابات الرقمية لهذا الموقع.</p></div>
+  <div class="card"><span class="card-kicker">مرجع</span><h3>SPICE وPDS</h3><p>للتحقق من الإطارات والصيغ والاصطلاحات، وليس لتشغيل حسابات المتصفح.</p></div>
+</div>
+
+<h2 id="table">الكتالوج المختصر</h2>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>المنتج</th><th>المزوّد</th><th>الصيغة</th><th>الدقة/التغطية</th><th>استخدامنا</th></tr></thead>
+  <tbody>
+    <tr><td>LOLA Site01 DEM</td><td>NASA GSFC PGDA</td><td>GeoTIFF</td><td>5 m/px، نافذة Connecting Ridge</td><td>أفق وتضاريس النقطة 01</td></tr>
+    <tr><td>LOLA Site04 DEM</td><td>NASA GSFC PGDA</td><td>GeoTIFF</td><td>5 m/px، نافذة Shackleton rim</td><td>أفق قمة وحافة منخفضة</td></tr>
+    <tr><td>South Pole Mosaic</td><td>NASA GSFC PGDA</td><td>GeoTIFF/IMG</td><td>87°S–90°S — راجع صفحة المنتج</td><td>خلفية خريطة</td></tr>
+    <tr><td>LOLA GDR</td><td>NASA PDS</td><td>IMG/JP2 + labels</td><td>متغيرة حسب الشبكة</td><td>مرجع وتحقق</td></tr>
+    <tr><td>Diviner</td><td>NASA PDS / UCLA</td><td>PDS products</td><td>متغيرة حسب المنتج</td><td>سياق حراري فقط</td></tr>
+    <tr><td>JPL Horizons</td><td>NASA JPL</td><td>نص/CSV/JSON</td><td>ساعي، سنة واحدة، ثلاث نقاط</td><td>مواضع الشمس والأرض</td></tr>
+    <tr><td>SPICE kernels</td><td>NASA NAIF</td><td>BSP/TF/TPC</td><td>حسب النواة</td><td>مرجع إطارات</td></tr>
+    <tr><td>SVS illumination</td><td>NASA SVS</td><td>صور/فيديو</td><td>2023–2030</td><td>سياق بصري</td></tr>
+    <tr><td>LROC QuickMap</td><td>ASU / NASA</td><td>خرائط ويب</td><td>NAC/WAC</td><td>تحقق بصري</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>مختبر بنية البيانات</h2>
+<p>
+  اختر منتجًا لعرض صيغته واستخدامه وحدوده. الأمثلة المعروضة <strong>توضيحية للبنية</strong>، وليست
+  مقتطفات من ملفات حقيقية. روابط الوصول تقود إلى صفحات المنتج الرسمية، لا إلى ملفات مُعاد استضافتها.
+</p>
+
+<section class="lab" id="lab-datasets">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 11 · DATASET EXPLORER</span>
+      <h2>ماذا يوجد داخل كل منتج؟</h2>
+      <p>تسع مجموعات، مع نوعها وصيغتها وحدودها. استخدم التصفية لعرض نوع واحد.</p>
+    </div>
+    <span class="lab-badge">CATALOG</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-controls">
+      <div class="segmented" id="dsFilters" role="group" aria-label="تصفية نوع البيانات"></div>
+      <span class="lab-status" id="dsStatus"><span class="dot"></span>جاهز</span>
+    </div>
+    <div class="lab-split equal">
+      <div id="dsList" style="max-height:520px;overflow:auto;padding-inline-end:3px"></div>
+      <div id="dsDetail"></div>
+    </div>
+    <p class="lab-note">
+      الروابط إلى صفحات المنتجات الرسمية: PGDA [[S9],[S10]]، PDS [[S11],[S13]]، Horizons [[S14],[S15]]،
+      SPICE [[S16],[S17]]، SVS [[S33]], LROC [[S29]]. لا تُعد الصيغ والأمثلة هنا بديلًا عن وصف PDS الرسمي.
+    </p>
+  </div>
+</section>
+
+<h2 id="files">ما الذي تشحنه النسخة الحالية؟</h2>
+<p>
+  ملفات DEM الأصلية بحجم 40,980,806 بايت لكل نافذة لا تُشحن داخل المستودع. بدلًا منها، تُولّد نسخة
+  تفاعلية 800×800 بدقة 20 m/px (1.28 MB لكل نموذج)، إضافة إلى ملفات JSON صغيرة. هذا قرار نشر
+  وتحميل، وليس ادعاء دقة كاملة.
+</p>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>الملف</th><th>الحجم التقريبي</th><th>الغرض</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">sites.json</td><td class="mono">27 KB</td><td>النقاط، الأرقام السنوية، الأفق 360°، الخريطة.</td></tr>
+    <tr><td class="mono">ephemeris_site01.json</td><td class="mono">197 KB</td><td>8,760 ساعة × شمس/أرض (لكل نقطة).</td></tr>
+    <tr><td class="mono">daily_site01.json</td><td class="mono">63 KB</td><td>تجميع يومي + مسافات.</td></tr>
+    <tr><td class="mono">dem_site01.bin</td><td class="mono">1.25 MB</td><td>شبكة Int16 800×800 بدقة 20 m/px.</td></tr>
+    <tr><td class="mono">map_mosaic.jpg</td><td class="mono">—</td><td>خلفية تضاريس حقيقية.</td></tr>
+    <tr><td class="mono">glossary.json</td><td class="mono">—</td><td>130 مصطلحًا للبحث والتصفية.</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="small muted">
+  راجع <code>assets/data/manifest.json</code> لبصمات SHA-256 وأحجام كل ملف. لم نضع روابط تنزيل مباشرة
+  للملفات الأصلية لأن الروابط قد تتغير؛ استخدم صفحات المنتج الرسمية [[S9],[S10],[S11]].
+</p>
+
+<h2 id="provenance">أصالة البيانات: كيف تتحقق؟</h2>
+<ol class="steps">
+  <li><strong>افتح صفحة المنتج الرسمية</strong> وتأكد من الإصدار وتاريخ النشر والدقة المعلنة، لا من اسم الملف فقط.</li>
+  <li><strong>اقرأ وصف PDS أو GeoTIFF</strong> لمعرفة الوحدات، الإسقاط، مرجع الارتفاع، وقيمة NoData [[S11]].</li>
+  <li><strong>قارن نقطة معروفة</strong> مثل مركز شاكليتون مع USGS Gazetteer [[S18]].</li>
+  <li><strong>أعد إنتاج رقم واحد</strong> من الصفر: حوّل إحداثيات، اقرأ عينة DEM، احسب زاوية أفق، وقارنها بالموقع.</li>
+  <li><strong>سجّل تاريخ الوصول</strong> ورابط المصدر في سجل المشروع؛ فالمنتجات تتحدث.</li>
+</ol>
+
+<h2 id="credits">الترخيص والاعتمادات</h2>
+<p>
+  صور وبيانات ناسا لها إرشادات استخدام خاصة؛ لا تعني أنها ملك عام بلا شروط في كل الحالات.
+  هذا المشروع تعليمي مستقل، ويذكر المصدر عند كل صورة أو منتج. لا يستخدم شعار ناسا للإيحاء
+  باعتماد رسمي، ولا يعيد استضافة ملفات ضخمة دون ضرورة [[S30]].
+</p>
+<div class="callout">
+  <span class="co-title">إن أعدت استخدام هذا العمل</span>
+  أبقِ أسماء المصادر وروابطها، وبيّن أن النقاط الثلاث مشتقة من DEM وليست مواقع هبوط رسمية،
+  وأن الحسابات تعليمية. الاحترام العلمي يبدأ من عدم إخفاء الحدود.
+</div>

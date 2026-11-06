@@ -1,0 +1,13 @@
+{
+  "id": "site01",
+  "label": "LOLA Site01 \u2014 Connecting Ridge",
+  "x0": -19000.0,
+  "y0": -4000.0,
+  "width": 800,
+  "height": 800,
+  "pixelM": 20.0,
+  "minEl": -519.6944007873535,
+  "maxEl": 1958.902359008789,
+  "source": "NASA LOLA / PGDA 5 m DEM, downsampled 4x for the browser",
+  "file": "dem_site01.bin"
+}

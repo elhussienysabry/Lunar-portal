@@ -1,0 +1,198 @@
+<p class="lead">
+  اختيار التقنية ليس قائمة أدوات نحبها؛ إنه قرار بشأن المخاطر والوقت. في هاكاثون 48 ساعة،
+  كل اعتماد إضافي هو مقامرة. في الإنتاج، كل اعتماد هو التزام صيانة. لذلك نفصل بوضوح بين
+  ما استُخدم هنا، وما نقترحه لاحقًا، وما لم نستخدمه رغم شعبيته.
+</p>
+
+<h2 id="architecture">البنية في نظرة واحدة</h2>
+<div class="pipeline">
+  <div class="pipe-step"><h3>المحتوى</h3><p>قوالب Jinja + نصوص عربية + بيانات JSON. لا CMS ولا قاعدة بيانات في نسخة الهاكاثون.</p></div>
+  <div class="pipe-step"><h3>البناء</h3><p>Python يقرأ البيانات، يولّد الصفحات، يبني فهرس البحث، ويفحص الروابط الداخلية.</p></div>
+  <div class="pipe-step"><h3>الواجهة</h3><p>HTML/CSS/JS أصلي، Canvas 2D للرسوم، وملفات خطوط محلية.</p></div>
+  <div class="pipe-step"><h3>النشر</h3><p>ملفات ثابتة على أي استضافة. لا خادم تطبيق، لا مفاتيح، لا تكلفة تشغيل تقريبًا.</p></div>
+</div>
+
+<h2 id="tree">بنية المشروع</h2>
+<pre><code class="language-text">lunar-portal/
+├── index.html              ← صفحات مبنية، تُنشر كما هي
+├── challenge.html
+├── ... (20 صفحة)
+├── 404.html
+├── sitemap.xml
+├── robots.txt
+├── assets/
+│   ├── css/style.css
+│   ├── js/app.js           ← التنقل، البحث، TOC
+│   ├── js/labs.js          ← المختبرات العلمية
+│   ├── js/labs-tools.js    ← الإحداثيات، الطاقة، الاتصال
+│   ├── js/labs-content.js  ← البيانات، المسرد، التقنيات، الطريق
+│   ├── fonts/              ← WOFF2 محلي
+│   ├── img/                ← صور مشتقة من LOLA وواجهات
+│   └── data/               ← JSON + DEM ثنائي + manifest
+└── _src/
+    ├── build.py            ← بناء الموقع
+    ├── build_data.py       ← معالجة DEM وHorizons
+    ├── sources.py          ← سجل المصادر S1–S44
+    ├── pages/*.html        ← محتوى الصفحات
+    ├── templates/base.html ← القالب المشترك
+    ├── data/glossary.json  ← 130 مصطلحًا
+    └── static/             ← المصدر قبل النسخ إلى assets
+</code></pre>
+<p class="small muted">
+  الصفحات المبنية موجودة في الجذر لتُفتح مباشرة عبر خادم ثابت. مجلد <code>_src</code> هو المصدر،
+  وليس مطلوبًا للنشر. هذا الفصل يمنع تحرير HTML المبني يدويًا ثم فقدان التعديل في البناء التالي.
+</p>
+
+<h2 id="chosen">ما استخدمناه فعلًا</h2>
+<div class="grid-3">
+  <div class="card accent"><span class="card-kicker">الواجهة</span><h3>HTML + CSS + JS أصلي</h3><p>لا React ولا Vue. السبب: حجم صغير، تحكم كامل في RTL، وسهولة مراجعة الكود في وقت قصير.</p></div>
+  <div class="card accent"><span class="card-kicker">البناء</span><h3>Python + Jinja2</h3><p>قوالب موحدة، تكرار أقل، وفهرس بحث آلي. بايثون متاح افتراضيًا في بيئة العمل.</p></div>
+  <div class="card accent"><span class="card-kicker">الرسوم</span><h3>Canvas 2D</h3><p>أفق، مقاطع، خرائط، وأشرطة. لا مكتبة رسم ثقيلة، وأداء جيد على الجوال.</p></div>
+  <div class="card accent"><span class="card-kicker">البيانات</span><h3>NumPy + Pillow</h3><p>قراءة DEM، الأفق، التصغير، وتوليد الصور. لا GDAL أو Rasterio في هذه البيئة.</p></div>
+  <div class="card accent"><span class="card-kicker">الفلك</span><h3>JPL Horizons مسبقًا</h3><p>نستعلم مرة عند البناء ونخزّن النتائج. لا اتصال شبكي وقت العرض.</p></div>
+  <div class="card accent"><span class="card-kicker">الخطوط</span><h3>IBM Plex محليًا</h3><p>Sans Arabic للنص وMono للأرقام. لا اعتماد على Google Fonts أو CDN.</p></div>
+</div>
+
+<h2>مختبر التقنيات: لماذا كل خيار؟</h2>
+<p>
+  استخدم التصفية لرؤية ما يخص الهاكاثون أو الإنتاج. البطاقات المميزة بحدود مضيئة هي ما نستخدمه
+  فعليًا في هذه النسخة؛ البقية اقتراحات صريحة، لا ادعاءات تنفيذ.
+</p>
+<section class="lab" id="lab-stack">
+  <div class="lab-head">
+    <div>
+      <span class="lab-kicker">LAB 13 · TECH STACK EXPLORER</span>
+      <h2>خيارات البنية ومبرراتها</h2>
+      <p>كل عنصر يوضح دوره، لماذا قد تختاره، وما الخطر الذي تجلبه. التصنيف: مستخدم / مقترح.</p>
+    </div>
+    <span class="lab-badge">PLANNING</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-controls">
+      <div class="segmented" id="stackFilters" role="group" aria-label="تصفية حسب المرحلة"></div>
+      <span class="lab-status" id="stackCount">—</span>
+    </div>
+    <div class="grid-3" id="stackGrid"></div>
+    <p class="lab-note">
+      «مستخدم في هذا الموقع» يعني أن الكود موجود ويعمل في النسخة الحالية. «اقتراح» يعني خيارًا
+      مستقبليًا لم يُنفّذ. لا توجد هنا خدمة مدفوعة أو مفتاح API.
+    </p>
+  </div>
+</section>
+
+<h2 id="why-static">لماذا موقع ثابت؟</h2>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>المعيار</th><th>موقع ثابت</th><th>تطبيق بخادم</th></tr></thead>
+  <tbody>
+    <tr><td>زمن الإعداد</td><td class="ok">دقائق</td><td class="amber">ساعات إلى أيام</td></tr>
+    <tr><td>سطح الهجوم</td><td class="ok">صغير جدًا</td><td class="amber">خادم، قاعدة بيانات، مصادقة</td></tr>
+    <tr><td>تكلفة التشغيل</td><td class="ok">قريبة من الصفر</td><td class="amber">استضافة ومراقبة</td></tr>
+    <tr><td>حساب مخصص لكل مستخدم</td><td class="no">محدود</td><td class="ok">مرن</td></tr>
+    <tr><td>رفع DEM وتحليله</td><td class="no">غير مناسب</td><td class="ok">ممكن</td></tr>
+    <tr><td>العمل دون إنترنت</td><td class="ok">بعد التحميل الأول</td><td class="no">يعتمد على الخادم</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  التحدي يطلب أداة تقارن وتوضح، لا منصة متعددة المستخدمين. الموقع الثابت يغطي 90% من قيمة
+  النسخة الأولى. عند الحاجة إلى حساب أفق لنقطة يدخلها المستخدم، نحتاج خادمًا أو Web Worker
+  مع DEM أكبر؛ وهذا قرار لاحق، لا شرط بداية [!S].
+</p>
+
+<h2 id="frontend">الواجهة: لماذا لا إطار عمل؟</h2>
+<ul>
+  <li><strong>الحجم:</strong> صفحة واحدة لا تحتاج تحميل React وRouter ومكتبة حالة لعرض رسم.</li>
+  <li><strong>RTL:</strong> التحكم اليدوي في الاتجاه والخطوط أوضح من معارك CSS مع مكتبة جاهزة.</li>
+  <li><strong>المراجعة:</strong> كود JavaScript مقروء في ملفات ثلاثة، يمكن لحكم الهاكاثون تتبعه.</li>
+  <li><strong>الفشل:</strong> لا شاشة بيضاء بسبب حزمة لم تُحمّل. الصفحة HTML تعمل حتى لو تعطل JS جزئيًا.</li>
+</ul>
+<p>
+  هذا ليس موقفًا أيديولوجيًا. لو احتجنا نموذجًا تفاعليًا معقدًا مع حالة كثيرة، فإطار عمل قد يكون
+  أفضل. لكن في هذه النسخة، التعقيد الإضافي لا يشتري قيمة متناسبة.
+</p>
+
+<h2 id="maps">الخرائط: لماذا Canvas لا MapLibre؟</h2>
+<p>
+  خريطتنا ليست خريطة ويب للتنقل. إنها إسقاط قطبي محلي مع ثلاث نقاط ونافذة تضاريس. رسمها على
+  Canvas يعطينا تحكمًا دقيقًا في المقياس والاتجاه، دون تحميل مكتبة بلاطات أو تكوين خادم خرائط.
+  عند الانتقال إلى خريطة قمرية كاملة مع تكبير وطبقات، يصبح MapLibre أو Leaflet خيارًا منطقيًا.
+</p>
+<div class="callout">
+  <span class="co-title">متى ننتقل؟</span>
+  عندما يصبح المستخدم بحاجة إلى تحريك/تكبير سلس على تضاريس واسعة، أو طبقات متعددة، أو عرض
+  بلاطات DEM. عندها تكون مكتبة الخرائط أرخص من إعادة اختراعها. القرار مرتبط بالمهمة، لا بالموضة.
+</div>
+
+<h2 id="data-stack">البيانات: من JSON إلى COG</h2>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>المرحلة</th><th>التقنية</th><th>السبب</th><th>متى نتجاوزها؟</th></tr></thead>
+  <tbody>
+    <tr><td>الآن</td><td>JSON + Int16 BIN</td><td>بسيط، قابل للأرشفة، بلا خادم.</td><td>عند إضافة عشرات المواقع.</td></tr>
+    <tr><td>تحليل محلي</td><td>DuckDB / SQLite</td><td>استعلام سريع على ملايين الصفوف.</td><td>عند الحاجة لمشاركة متعددة.</td></tr>
+    <tr><td>خدمة مكانية</td><td>PostgreSQL + PostGIS</td><td>فهارس مكانية وزمنية ناضجة.</td><td>عند تعدد المستخدمين والكتابة.</td></tr>
+    <tr><td>تضاريس كبيرة</td><td>Cloud Optimized GeoTIFF</td><td>قراءة نافذة دون تنزيل الملف كاملًا.</td><td>عند الحاجة لدقة 5 m على مساحة واسعة.</td></tr>
+    <tr><td>بلاطات</td><td>PMTiles / Terrain-RGB</td><td>عرض سلس وتوزيع بسيط.</td><td>عند بناء خريطة تفاعلية كاملة.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="backend">لو أضفنا خادمًا: FastAPI أولًا</h2>
+<pre><code class="language-python">from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+
+app = FastAPI(title="Lunar Site API", version="0.1")
+
+class HorizonRequest(BaseModel):
+    lat: float = Field(..., ge=-90, le=-60)
+    lon: float = Field(..., ge=0, lt=360)
+    radius_km: float = Field(9.0, gt=0, le=30)
+
+@app.post("/horizon")
+def horizon(req: HorizonRequest):
+    # 1) تحقق من المدخلات
+    # 2) اقرأ نافذة DEM من COG
+    # 3) احسب الأفق
+    # 4) أعد النتيجة مع الإصدار والوحدات
+    raise HTTPException(status_code=501, detail="not implemented in this build")</code></pre>
+<p class="small muted">
+  المقتطف يوضح شكل الخدمة والتحقق، وليس تنفيذًا جاهزًا. لا توجد خدمة فعلية في هذه النسخة، ولا
+  رابط API وهمي. أي نقطة نهاية حقيقية يجب أن توثّق الإصدار والوحدات وحدود المعدل.
+</p>
+
+<h2 id="deploy">النشر والتحقق من الجاهزية</h2>
+<ol class="steps">
+  <li><strong>بناء:</strong> شغّل <code>python3 _src/build.py</code> وتأكد من نجاح فحص الروابط.</li>
+  <li><strong>فحص:</strong> افتح الصفحات الرئيسية والمختبرات على خادم محلي، لا عبر <code>file://</code>.</li>
+  <li><strong>نشر:</strong> ارفع الجذر إلى GitHub Pages أو Netlify أو أي استضافة ثابتة.</li>
+  <li><strong>تحقق بعد النشر:</strong> اختبر مسارات البيانات، الخطوط، والبحث من نطاق حقيقي.</li>
+  <li><strong>أرشفة:</strong> احفظ نسخة من البيانات و<code>manifest.json</code> مع وسم الإصدار.</li>
+</ol>
+
+<h2 id="budget">ميزانية الأداء</h2>
+<div class="table-wrap">
+<table class="data-table">
+  <thead><tr><th>المورد</th><th>الحجم التقريبي</th><th>ملاحظة</th></tr></thead>
+  <tbody>
+    <tr><td>HTML صفحة واحدة</td><td class="mono">20–60 KB</td><td>يعتمد على طول الصفحة.</td></tr>
+    <tr><td>CSS</td><td class="mono">~40 KB</td><td>ملف واحد، بلا إطار عمل.</td></tr>
+    <tr><td>JavaScript</td><td class="mono">~80 KB</td><td>ثلاثة ملفات، بلا مصغّر في هذه النسخة.</td></tr>
+    <tr><td>خطوط WOFF2</td><td class="mono">~390 KB</td><td>ستة أوزان؛ يمكن تقليلها لاحقًا.</td></tr>
+    <tr><td>بيانات المختبر</td><td class="mono">0.2–1.3 MB</td><td>تُحمّل عند الحاجة فقط.</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="small muted">
+  الأرقام تقديرية من ملفات المصدر. لا نعرض «درجة PageSpeed» بلا قياس فعلي. قبل النشر النهائي،
+  شغّل قياسًا على اتصال بطيء وسجّل النتيجة.
+</p>
+
+<h2 id="security">قائمة تحقق أمنية</h2>
+<ul class="checklist">
+  <li>لا أسرار أو مفاتيح في المستودع أو JavaScript.</li>
+  <li>لا تنفيذ لأوامر من مدخلات المستخدم.</li>
+  <li>روابط خارجية مع <code>noopener noreferrer</code>.</li>
+  <li>لا حقن HTML من بيانات غير موثوقة؛ النصوص تُدرج عبر <code>textContent</code> في المختبرات.</li>
+  <li>عند إضافة خادم: تحقق من الحجم والنوع، وحدود معدل، وسجلات بلا بيانات شخصية.</li>
+</ul>

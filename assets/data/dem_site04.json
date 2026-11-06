@@ -1,0 +1,13 @@
+{
+  "id": "site04",
+  "label": "LOLA Site04 \u2014 Shackleton rim",
+  "x0": -9000.0,
+  "y0": 1000.0,
+  "width": 800,
+  "height": 800,
+  "pixelM": 20.0,
+  "minEl": -2846.7027435302734,
+  "maxEl": 1803.8094787597656,
+  "source": "NASA LOLA / PGDA 5 m DEM, downsampled 4x for the browser",
+  "file": "dem_site04.bin"
+}
