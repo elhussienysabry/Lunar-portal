@@ -1,42 +1,42 @@
-# مُوجِّه مواقع الهبوط القمرية
+# Lunar Landing Site Navigator
 
 **Lunar Landing Site Navigator · NASA Space Apps Challenge 2026**
 
-**الموقع المنشور:** <https://elhussienysabry.github.io/Lunar-portal/>
+**Live site:** <https://elhussienysabry.github.io/Lunar-portal/>
 
 [![Build and deploy to GitHub Pages](https://github.com/elhussienysabry/Lunar-portal/actions/workflows/pages.yml/badge.svg)](https://github.com/elhussienysabry/Lunar-portal/actions/workflows/pages.yml)
 
-موقع عربي ثابت (Static) وتعليمي لشرح تحدّي **Lunar Landing Site Navigator** وبناء أداة قرار لاختيار مواقع الهبوط في القطب الجنوبي للقمر: العلم، البيانات الحقيقية، الرياضيات، هندسة الطاقة والاتصالات، تجربة المستخدم، والتنفيذ. ويتضمن **مُوجِّهًا متكاملًا** يجمع المحاكاة وأثر التأخير والأفق 360° ومقارنة المواقع وخط زمن العمليات في مساحة عمل واحدة.
+An Arabic static educational site explaining the **Lunar Landing Site Navigator** challenge and building a decision tool for landing-site selection in the lunar south polar region: science, real data, mathematics, power and communications engineering, user experience, and implementation. It includes an **integrated navigator** that combines mission simulation, delay impact, the 360° horizon, site comparison, and an operations timeline in a single workspace.
 
-> **إخلاء مسؤولية:** هذا مشروع تعليمي مستقل، وليس منتجًا رسميًا من NASA ولا تابعًا لها. لا يستخدم شعار NASA ولا يدّعي اعتمادًا رسميًا. النقاط الثلاث في الموقع **نقاط تحليل مشتقة** من نماذج ارتفاع LOLA، وليست مواقع هبوط رسمية أو مرشحة من ناسا.
+> **Disclaimer:** This is an independent educational project, not an official NASA product and not affiliated with NASA. It does not use the NASA logo and does not claim official endorsement. The three sites on this site are **derived analysis points** based on LOLA elevation models, not official or NASA-proposed landing sites.
 
 ---
 
-## 1. ما الموجود هنا؟
+## 1. What is here?
 
-| العنصر | العدد / الحالة |
+| Item | Count / status |
 |---|---:|
-| صفحات HTML مبنية | 21 |
-| مختبرات تفاعلية | 15 |
-| وحدات المُوجِّه المتكامل | 8 تبويبات (5 وحدات قرار + 3 مساندة) |
-| مصادر موثقة | 44 (S1–S44) |
-| مصطلحات في المسرد | 130 |
-| نقاط تضاريس مشتقة | 3 |
-| نافذتا DEM من LOLA | 2 (Site01 وSite04) |
-| ساعات Sun/Earth من JPL Horizons | 8,760 ساعة لكل نقطة |
-| اختبارات محرك المُوجِّه | 15 اختبارًا آليًا |
-| لقطة البيانات | 2026-11-04 |
-| زمن التحدي | 14–15 نوفمبر 2026 |
+| Built HTML pages | 21 |
+| Interactive labs | 15 |
+| Integrated navigator modules | 8 tabs (5 decision modules + 3 supporting) |
+| Documented sources | 44 (S1–S44) |
+| Glossary terms | 130 |
+| Derived terrain sites | 3 |
+| LOLA DEM windows | 2 (Site01 and Site04) |
+| JPL Horizons Sun/Earth hours | 8,760 hours per site |
+| Navigator engine tests | 15 automated tests |
+| Data snapshot | 2026-11-04 |
+| Challenge dates | November 14–15, 2026 |
 
-يغطي المحتوى الأقسام المطلوبة A–P: فهم التحدي، CLPS، علم القطب، الطاقة والاتصالات، الإحداثيات، البيانات، هندسة البيانات، النماذج، UX، المشهد التنافسي، التقنيات، خارطة الطريق، MVP، التحقق، المسرد، ومسار التعلّم. أُضيفت صفحتا **المختبرات** و**المصادر** كواجهتين مساعدتين، ثم **المُوجِّه** (`navigator.html`) كمساحة عمل قرار مستقلة تربط الوحدات الخمس.
+The content covers the required sections A–P: understanding the challenge, CLPS, polar science, power and communications, coordinates, data, data engineering, models, UX, the competitive landscape, technologies, roadmap, MVP, validation, glossary, and the learning path. The **Labs** and **Sources** pages were added as supporting interfaces, followed by the **Navigator** (`navigator.html`) as a standalone decision workspace connecting the five modules.
 
 ---
 
-## 2. التشغيل السريع
+## 2. Quick start
 
-لا يحتاج الموقع إلى خادم تطبيقات أو قاعدة بيانات. لكنه **يجب أن يُخدَّم عبر HTTP**، لأن المتصفح يجلب ملفات JSON وDEM عبر `fetch`، وهذا لا يعمل عند فتح `index.html` مباشرةً عبر `file://`.
+The site does not need an application server or a database. However, it **must be served over HTTP**, because the browser fetches JSON and DEM files via `fetch`, which does not work when opening `index.html` directly via `file://`.
 
-ملفات HTML في جذر المشروع هي **مخرجات بناء غير متتبعة في Git**. بعد استنساخ المستودع، ابنِ الموقع أولًا:
+The HTML files at the project root are **generated build output and are not tracked in Git**. After cloning the repository, build the site first:
 
 ```bash
 cd lunar-portal
@@ -45,86 +45,86 @@ python3 _src/build.py
 python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
-ثم افتح:
+Then open:
 
 ```text
 http://127.0.0.1:8765/
 ```
 
-مساحة عمل القرار المتكاملة:
+The integrated decision workspace:
 
 ```text
 http://127.0.0.1:8765/navigator.html
 ```
 
-لأي خادم ثابت آخر، انشر مخرجات البناء: جذر المشروع بعد `_src/build.py`، أو مجلد `_site` الذي ينتجه GitHub Actions. الصفحة الرئيسية هي `index.html`.
+For any other static server, deploy the build output: the project root after `_src/build.py`, or the `_site` directory produced by GitHub Actions. The home page is `index.html`.
 
 ---
 
-## 3. بناء الصفحات
+## 3. Building the pages
 
-### المتطلبات
+### Requirements
 
-- Python 3.10 أو أحدث (اختُبر على Python 3.14).
-- الحزم في `requirements.txt`.
+- Python 3.10 or newer (tested on Python 3.14).
+- Dependencies in `requirements.txt`.
 
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
-### أمر البناء
+### Build command
 
 ```bash
 python3 _src/build.py
 ```
 
-ما الذي يفعله البناء؟
+What does the build do?
 
-1. يقرأ صفحات `_src/pages/*.html` عبر قوالب Jinja في `_src/templates/`.
-2. يوسّع الاقتباسات `[[S9]]` و`[[S2],[S3]]` إلى روابط لمصادر `sources.html`.
-3. يحوّل وسوم الادعاء `[!O]` و`[!D]` و`[!E]` و`[!S]` و`[!H]` إلى شارات مرئية.
-4. يضيف فهرس محتويات تلقائيًا، ويغلّف الجداول، ويضبط الصور.
-5. ينسخ `_src/static/` إلى `assets/`، وينسخ المسرد إلى `assets/data/glossary.json`.
-6. يبني فهرس البحث `assets/data/search.json`.
-7. يفحص الروابط الداخلية والمراسي، ويكتب `robots.txt`.
-8. يكتب `sitemap.xml` **فقط** إذا ضبطت `SITE_URL`؛ لا يوجد نطاق وهمي مفترض.
+1. Reads `_src/pages/*.html` through the Jinja templates in `_src/templates/`.
+2. Expands citations `[[S9]]` and `[[S2],[S3]]` into links to `sources.html`.
+3. Converts claim tags `[!O]`, `[!D]`, `[!E]`, `[!S]`, and `[!H]` into visible badges.
+4. Adds an automatic table of contents, wraps tables, and adjusts images.
+5. Copies `_src/static/` to `assets/`, and copies the glossary to `assets/data/glossary.json`.
+6. Builds the search index `assets/data/search.json`.
+7. Checks internal links and anchors, and writes `robots.txt`.
+8. Writes `sitemap.xml` **only** if `SITE_URL` is set; no fake domain is assumed.
 
 ```bash
-# اختياري: لتفعيل sitemap بروابط مطلقة
+# Optional: generate a sitemap with absolute URLs
 SITE_URL="https://<your-host>/<path>" python3 _src/build.py
 ```
 
-بدون `SITE_URL` سيُكتب `robots.txt` دون سطر sitemap، ولن يُنشأ `sitemap.xml`.
+Without `SITE_URL`, `robots.txt` is written without a sitemap line, and `sitemap.xml` is not created.
 
-### مخرجات البناء
+### Build output
 
-- 21 صفحة HTML في الجذر.
+- 21 HTML pages at the project root.
 - `assets/css/style.css`, `navigator.css`
 - `assets/js/app.js`, `labs.js`, `labs-tools.js`, `labs-content.js`, `navigator-engine.js`, `navigator.js`
-- `assets/data/*.json` و`*.bin`
+- `assets/data/*.json` and `*.bin`
 - `assets/fonts/*.woff2`
 - `assets/img/*.jpg`
 - `assets/data/search.json`
 
 ---
 
-## 4. إعادة توليد البيانات (اختياري)
+## 4. Regenerating data (optional)
 
-البيانات المولّدة **مضمّنة** في `assets/data/`، لذلك لا تحتاج إلى اتصال بالإنترنت لتشغيل الموقع أو بناء الصفحات. إعادة التوليد مطلوبة فقط إذا أردت تغيير النقاط أو الفترة الزمنية.
+Generated data is **bundled** in `assets/data/`, so no internet connection is needed to run the site or build the pages. Regeneration is required only if you want to change the sites or the time period.
 
-### المدخلات غير المضمّنة
+### Inputs that are not bundled
 
-- نموذجا LOLA بدقة 5 m/px من PGDA:
+- Two LOLA 5 m/px models from PGDA:
   - `site01_surf.tif` — Connecting Ridge
   - `site04_surf.tif` — Shackleton rim
-- ملفات JPL Horizons النصية للشمس والأرض، خطوة ساعة واحدة، من 2026-11-01 إلى 2027-11-01:
-  - `horizons_sun_D_year.txt` و`horizons_earth_D_year.txt` — Site01
-  - `horizons_sun_B_year.txt` و`horizons_earth_B_year.txt` — Site04 peak
-  - `horizons_sun_year.txt` و`horizons_earth_year.txt` — Site04 low
+- JPL Horizons text files for the Sun and Earth, one-hour step, from 2026-11-01 to 2027-11-01:
+  - `horizons_sun_D_year.txt` and `horizons_earth_D_year.txt` — Site01
+  - `horizons_sun_B_year.txt` and `horizons_earth_B_year.txt` — Site04 peak
+  - `horizons_sun_year.txt` and `horizons_earth_year.txt` — Site04 low
 
-روابط المنتجات الأصلية موجودة في `sources.html` تحت S9، S10، S14، وS15. ملفات DEM الأصلية كبيرة (نحو 41 MB لكل نافذة) ولا تُشحن مع المشروع.
+Links to the original products are in `sources.html` under S9, S10, S14, and S15. The original DEM files are large (about 41 MB per window) and are not shipped with the project.
 
-### الأمر
+### Command
 
 ```bash
 python3 _src/build_data.py \
@@ -133,19 +133,19 @@ python3 _src/build_data.py \
   --out assets
 ```
 
-ينتج:
+It produces:
 
-- `assets/data/sites.json` — النقاط الثلاث، الارتفاعات، الميل، نسب الشمس والأرض، والأفق.
-- `assets/data/ephemeris_<site>.json` — 8,760 ساعة.
-- `assets/data/daily_<site>.json` — ملخص يومي.
-- `assets/data/dem_site01.bin` و`dem_site04.bin` — DEM مخفّض إلى 20 m/px للعرض في المتصفح.
-- `assets/data/dem_*.json` — البيانات الوصفية والحدود.
-- `assets/data/manifest.json` — أحجام وبصمات SHA-256 للمنتجات المشتقة الإحدى عشرة. لا يسرد الملف نفسه (لا يمكن أن يحوي بصمة نهائية لنفسه)، ولا يسرد مخرجات البناء `search.json` و`glossary.json`.
-- صور مشتقة في `assets/img/`.
+- `assets/data/sites.json` — the three sites, elevations, slope, Sun/Earth percentages, and horizon.
+- `assets/data/ephemeris_<site>.json` — 8,760 hours.
+- `assets/data/daily_<site>.json` — daily summary.
+- `assets/data/dem_site01.bin` and `dem_site04.bin` — DEM downsampled to 20 m/px for browser display.
+- `assets/data/dem_*.json` — metadata and bounds.
+- `assets/data/manifest.json` — sizes and SHA-256 fingerprints of the eleven derived products. The file does not list itself (it cannot contain a final hash of itself), nor does it list the build outputs `search.json` and `glossary.json`.
+- Derived images in `assets/img/`.
 
-> **مهم:** `build_data.py` لا ينزّل البيانات تلقائيًا من NASA. أنت مسؤول عن تنزيل المنتجات من صفحاتها الرسمية والتحقق من إصدارها.
+> **Important:** `build_data.py` does not download data automatically from NASA. You are responsible for downloading products from their official pages and verifying their version.
 
-لتحديث البصمات بعد تعديل ملف بيانات مشتق، دون إعادة توليد DEM أو Horizons:
+To refresh fingerprints after editing a derived data file, without regenerating DEM or Horizons:
 
 ```bash
 python3 _src/build_data.py --out assets --manifest-only
@@ -153,305 +153,305 @@ python3 _src/build_data.py --out assets --manifest-only
 
 ---
 
-## 5. بنية المشروع
+## 5. Project structure
 
 ```text
 lunar-portal/
-├── index.html                  # الصفحة الرئيسية
-├── challenge.html              # A · فهم التحدي
-├── clps.html                   # B · CLPS والمهام
-├── science.html                # C · علم القطب الجنوبي
-├── power-comms.html            # D · الطاقة والاتصالات
-├── coordinates.html            # E · الإحداثيات والزمن
-├── datasets.html               # F · مجموعات البيانات
-├── data-engineering.html       # G · هندسة البيانات
-├── models.html                 # H · النماذج الحسابية
-├── ux.html                     # I · تجربة المستخدم
-├── landscape.html              # J · المشهد التنافسي
-├── stack.html                  # K · التقنيات والبنية
-├── roadmap.html                # L · خارطة الطريق
-├── mvp.html                    # M · MVP مقابل المتقدم
-├── validation.html             # N · التحقق والثقة
-├── glossary.html               # O · المسرد التفاعلي
-├── learn.html                  # P · مسار التعلّم
-├── labs.html                   # فهرس المختبرات + مستكشف المواقع والمقارنة
-├── sources.html                # المصادر S1–S44
-├── search.html                 # البحث في كل الصفحات
-├── navigator.html              # المُوجِّه المتكامل (8 تبويبات)
+├── index.html                  # Home page
+├── challenge.html              # A · Understanding the challenge
+├── clps.html                   # B · CLPS and missions
+├── science.html                # C · South polar science
+├── power-comms.html            # D · Power and communications
+├── coordinates.html            # E · Coordinates and time
+├── datasets.html               # F · Datasets
+├── data-engineering.html       # G · Data engineering
+├── models.html                 # H · Computational models
+├── ux.html                     # I · User experience
+├── landscape.html              # J · Competitive landscape
+├── stack.html                  # K · Technologies and architecture
+├── roadmap.html                # L · Roadmap
+├── mvp.html                    # M · MVP vs. advanced
+├── validation.html             # N · Validation and trust
+├── glossary.html               # O · Interactive glossary
+├── learn.html                  # P · Learning path
+├── labs.html                   # Lab index + site explorer and comparison
+├── sources.html                # Sources S1–S44
+├── search.html                 # Site-wide search
+├── navigator.html              # Integrated navigator (8 tabs)
 ├── 404.html
 ├── robots.txt
-├── sitemap.xml                 # اختياري عند ضبط SITE_URL
+├── sitemap.xml                 # Optional when SITE_URL is set
 ├── requirements.txt
 ├── assets/
 │   ├── css/style.css
-│   ├── css/navigator.css       # تنسيق مساحة عمل المُوجِّه
+│   ├── css/navigator.css       # Navigator workspace styling
 │   ├── js/
-│   │   ├── app.js              # التنقل، البحث، TOC، النسخ، التبويبات
-│   │   ├── labs.js             # المهام، المستكشف، الأفق، الشمس، الأرض
-│   │   ├── labs-tools.js       # الإحداثيات، التقويم، المقارنة، الطاقة، الوصلة
-│   │   ├── labs-content.js     # البيانات، المسرد، التقنيات، الطريق، الاختبار
-│   │   ├── navigator-engine.js # محرك الحسابات المستقل والقابل للاختبار
-│   │   └── navigator.js        # واجهة المُوجِّه والرسوم والتصدير
+│   │   ├── app.js              # Navigation, search, TOC, copy, tabs
+│   │   ├── labs.js             # Missions, explorer, horizon, Sun, Earth
+│   │   ├── labs-tools.js       # Coordinates, calendar, comparison, power, link
+│   │   ├── labs-content.js     # Data, glossary, technologies, roadmap, quiz
+│   │   ├── navigator-engine.js # Independent, testable calculation engine
+│   │   └── navigator.js        # Navigator UI, charts, and export
 │   ├── data/                   # JSON + DEM binaries + manifest + search index
-│   ├── fonts/                  # IBM Plex Sans Arabic + IBM Plex Mono (محلية)
-│   └── img/                    # صور مشتقة من LOLA
+│   ├── fonts/                  # IBM Plex Sans Arabic + IBM Plex Mono (local)
+│   └── img/                    # Images derived from LOLA
 └── _src/
-    ├── build.py                # باني الموقع الثابت
-    ├── build_data.py           # مولّد البيانات والصور
-    ├── sources.py              # سجل المصادر S1–S44
-    ├── data/glossary.json      # 130 مصطلحًا
-    ├── pages/                  # 21 قالب صفحة
+    ├── build.py                # Static site builder
+    ├── build_data.py           # Data and image generator
+    ├── sources.py              # Source registry S1–S44
+    ├── data/glossary.json      # 130 terms
+    ├── pages/                  # 21 page templates
     ├── tests/
-    │   └── navigator.test.cjs  # 15 اختبارًا لمحرك المُوجِّه
+    │   └── navigator.test.cjs  # 15 navigator engine tests
     ├── templates/
-    │   ├── base.html           # التخطيط المشترك
+    │   ├── base.html           # Shared layout
     │   └── 404.html
-    └── static/                 # المصدر الأصلي للـ CSS/JS/fonts/img
+    └── static/                 # Original source for CSS/JS/fonts/img
 ```
 
-لا تعدّل ملفات `assets/` أو صفحات HTML في الجذر مباشرةً إن كنت ستستخدم البناء؛ فهي مخرجات تُستبدل. عدّل `_src/` ثم أعد البناء.
+Do not edit files in `assets/` or the root HTML pages directly if you use the build; they are generated outputs that get replaced. Edit `_src/` and rebuild.
 
-> **ما يُتتبَّع في Git:** `_src/`، وصور LOLA المشتقة في `assets/img/*.jpg`، وبيانات `assets/data/` عدا `search.json` و`glossary.json`، و`requirements.txt`، و`README.md`، وسير عمل النشر. أما صفحات HTML في الجذر، و`assets/css/`، و`assets/js/`، و`assets/fonts/`، و`robots.txt`، و`sitemap.xml`، و`assets/data/search.json`، و`assets/data/glossary.json` فهي مخرجات بناء ينتجها `_src/build.py` محليًا أو GitHub Actions.
+> **Tracked in Git:** `_src/`, the LOLA-derived images in `assets/img/*.jpg`, the data in `assets/data/` except `search.json` and `glossary.json`, `requirements.txt`, `README.md`, and the deployment workflow. The root HTML pages, `assets/css/`, `assets/js/`, `assets/fonts/`, `robots.txt`, `sitemap.xml`, `assets/data/search.json`, and `assets/data/glossary.json` are build outputs produced by `_src/build.py` locally or by GitHub Actions.
 
 ---
 
-## 6. البيانات الحقيقية والنقاط الثلاث
+## 6. Real data and the three sites
 
-### 6.1 النقاط
+### 6.1 Sites
 
-النقاط اختيرت داخل نافذتي LOLA بدقة 5 m/px، ثم حُسب لها:
+The sites were selected inside the two LOLA 5 m/px windows, then the following were computed for them:
 
-- الارتفاع من DEM.
-- الميل الموضعي في نافذة 5 m و50 m.
-- الأفق التضاريسي 360°.
-- نسبة ساعات الشمس فوق الأفق التضاريسي.
-- نسبة ساعات رؤية الأرض فوق الأفق التضاريسي.
-- أطول فترة إضاءة، وأطول فترة ظلام، وأطول انقطاع أرضي.
+- Elevation from the DEM.
+- Local slope over 5 m and 50 m windows.
+- 360° terrain horizon.
+- Percentage of hours with the Sun above the terrain horizon.
+- Percentage of hours with Earth visible above the terrain horizon.
+- Longest illumination period, longest darkness period, and longest Earth outage.
 
-| النقطة | خط العرض | خط الطول | الارتفاع | الميل | الشمس | الأرض | أطول ظلام | أطول انقطاع أرضي |
+| Site | Latitude | Longitude | Elevation | Slope | Sun | Earth | Longest darkness | Longest Earth outage |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | Site01 — Connecting Ridge summit | 89.4389°S | 222.8683°E | 1,959.5 m | 0.20° | 93.97% | 58.04% | 162 h | 279 h |
 | Site04 — High point on Shackleton rim | 89.9026°S | 213.9591°E | 1,505.4 m | 2.56° | 74.95% | 54.05% | 176 h | 309 h |
 | Site04 — Lower point on Shackleton rim | 89.9405°S | 213.6901°E | 1,423.4 m | 3.30° | 46.78% | 35.29% | 602 h | 436 h |
 
-**تحذيرات تفسيرية:**
+**Interpretation cautions:**
 
-- هذه **نقاط مشتقة للتحليل**، وليست مواقع هبوط رسمية. أسماءها وصفية، ولا تمثل مركز فوهة شاكليتون.
-- عبارة NASA عن «ثلاث نقاط على الحافة تتجاوز collectively 90% إضاءة» تشير إلى نقاط محددة في دراسة NASA، وليست ضمانًا لكل نقطة على الحافة. لا تُقارن نسبة نقطة واحدة مباشرةً بهذا الوصف.
-- النسب محسوبة على سنة عينة واحدة (2026-11-01 إلى 2027-11-01)، وليست مناخًا طويل الأمد.
-- «أطول ظلام» يعني أطول فترة متصلة تحت الأفق التضاريسي في سنة العينة، وليس ضمانًا إحصائيًا.
+- These are **derived analysis points**, not official landing sites. Their names are descriptive and do not represent the center of Shackleton crater.
+- NASA's statement about "three points on the rim collectively exceeding 90% illumination" refers to specific points in a NASA study and is not a guarantee for every point on the rim. Do not compare a single point's percentage directly with that statement.
+- Percentages are computed over one sample year (2026-11-01 to 2027-11-01), not a long-term climate.
+- "Longest darkness" means the longest continuous period below the terrain horizon in the sample year, not a statistical guarantee.
 
-### 6.2 مصادر البيانات الأساسية
+### 6.2 Primary data sources
 
-- **LOLA 5 m/px DEM** من NASA GSFC/PGDA: S9، S10، S11، S12.
-- **JPL Horizons** لارتفاع وسمت الشمس (10) والأرض (399) topocentric: S14، S15.
-- **SPICE/NAIF** للمصطلحات والإطارات: S16، S17.
-- **USGS Gazetteer** لمركز فوهة شاكليتون وقطرها: S18.
-- **Diviner** للسياق العلمي فقط؛ الموقع لا يعرض درجات حرارة رقمية مشتقة منه: S13.
-- **NASA SVS** للسياق البصري، وليس لإدخال بيانات في النماذج: S33، S34.
-- **TSIS-1** لقيمة الثابت الشمسي 1,361.6 W/m² المستخدمة في الحاسبة: S41.
+- **LOLA 5 m/px DEM** from NASA GSFC/PGDA: S9, S10, S11, S12.
+- **JPL Horizons** for topocentric Sun (10) and Earth (399) elevation and azimuth: S14, S15.
+- **SPICE/NAIF** for terminology and frames: S16, S17.
+- **USGS Gazetteer** for Shackleton crater center and diameter: S18.
+- **Diviner** for scientific context only; the site does not display numerical temperatures derived from it: S13.
+- **NASA SVS** for visual context, not for model input data: S33, S34.
+- **TSIS-1** for the solar constant of 1,361.6 W/m² used in the calculator: S41.
 
-كل الاقتباسات داخل الصفحات تتحول إلى روابط لبطاقات المصادر. القائمة الكاملة وتاريخ الوصول وحدود كل مصدر في `sources.html`.
+All citations inside the pages become links to source cards. The full list, access dates, and limitations of each source are in `sources.html`.
 
 ---
 
-## 7. المختبرات الخمسة عشر
+## 7. The fifteen labs
 
-| # | المختبر | الصفحة | نوع البيانات |
+| # | Lab | Page | Data type |
 |---:|---|---|---|
-| 01 | خط زمني لمهام CLPS | `clps.html` | حالات موثقة حتى 2026-11-04 |
-| 02 | مستكشف مواقع الهبوط | `labs.html` | LOLA + مشتقات |
-| 03 | بانوراما الأفق 360° | `science.html` | LOLA DEM |
-| 04 | مقطع الشمس حتى الأفق | `power-comms.html` | LOLA + Horizons |
-| 05 | رؤية الأرض على مدار سنة | `power-comms.html` | Horizons |
-| 06 | تحويل الإحداثيات ورسم قطبي | `coordinates.html` | هندسة + حدود DEM |
-| 07 | تقويم الإضاءة والاتصال | `science.html` | ملخص يومي مشتق |
-| 08 | مقارنة السيناريوهات | `labs.html` | أوزان تعليمية قابلة للتغيير |
-| 09 | ميزانية الطاقة | `power-comms.html` | حاسبة تعليمية |
-| 10 | ميزانية الوصلة | `power-comms.html` | حاسبة تعليمية |
-| 11 | مستكشف مجموعات البيانات | `datasets.html` | كتالوج وصفي |
-| 12 | المسرد التفاعلي | `glossary.html` | 130 مصطلحًا |
-| 13 | مستكشف التقنيات | `stack.html` | مقارنة قرارات |
-| 14 | خارطة الطريق التفاعلية | `roadmap.html` | 22 مهمة مع تقدم محلي |
-| 15 | اختبار الفهم | `learn.html` | 8 أسئلة |
+| 01 | CLPS mission timeline | `clps.html` | Documented status through 2026-11-04 |
+| 02 | Landing site explorer | `labs.html` | LOLA + derivatives |
+| 03 | 360° horizon panorama | `science.html` | LOLA DEM |
+| 04 | Sun profile down to the horizon | `power-comms.html` | LOLA + Horizons |
+| 05 | Earth visibility over one year | `power-comms.html` | Horizons |
+| 06 | Coordinate conversion and polar plot | `coordinates.html` | Geometry + DEM bounds |
+| 07 | Illumination and communication calendar | `science.html` | Derived daily summary |
+| 08 | Scenario comparison | `labs.html` | Editable educational weights |
+| 09 | Power budget | `power-comms.html` | Educational calculator |
+| 10 | Link budget | `power-comms.html` | Educational calculator |
+| 11 | Dataset explorer | `datasets.html` | Descriptive catalog |
+| 12 | Interactive glossary | `glossary.html` | 130 terms |
+| 13 | Technology explorer | `stack.html` | Decision comparison |
+| 14 | Interactive roadmap | `roadmap.html` | 22 tasks with local progress |
+| 15 | Comprehension quiz | `learn.html` | 8 questions |
 
-المختبرات 02–07 تعتمد على بيانات مسبقة التوليد. المختبرات 08–10 و14–15 حاسبات أو أدوات تعليمية تعتمد على مدخلاتك. لا يوجد أي استدعاء API وقت العرض.
+Labs 02–07 rely on pre-generated data. Labs 08–10 and 14–15 are calculators or educational tools driven by your input. There are no API calls at runtime.
 
 ---
 
-## 8. المُوجِّه المتكامل (`navigator.html`)
+## 8. The integrated navigator (`navigator.html`)
 
-مساحة عمل واحدة تشترك فيها كل الوحدات في **حالة سيناريو واحدة**: الموقع (أو إحداثيات مخصصة)، تاريخ البداية، الساعة، المدة، والفاصل الزمني، مع عرض المنطقة الزمنية للتوثيق. تغيير أي مدخل يعيد حساب كل الوحدات المتأثرة، وتظل الحسابات الداخلية بتوقيت UTC.
+A single workspace where every module shares **one scenario state**: site (or custom coordinates), start date, start time, duration, and sampling interval, with the timezone displayed for documentation. Changing any input recomputes all affected modules, while internal calculations remain in UTC.
 
-| التبويب | الوحدة | ما يقدمه |
+| Tab | Module | What it provides |
 |---|---|---|
-| نظرة عامة | لوحة قرار | مؤشرات الشمس والأرض والتداخل، ونافذة الرؤية، وخط زمني مصغّر، وتفاصيل اللحظة المحددة. |
-| المحاكاة | Mission Decision Simulator | خريطة قمرية، مؤشرات اتجاه سماوية، رسم أفقي قطبي، وحالات الرؤية الهندسية والتضاريسية. |
-| الأفق | 360° Lunar Horizon Intelligence | سمت وارتفاع الشمس/الأرض، أفق تضاريسي لكل درجة، مسافة العائق، وزاوية الخلوص. |
-| الخط الزمني | Mission Operations Timeline | مسارات متزامنة للطاقة والاتصال، تكبير/تحريك، نقاط انتقال، وجدول أحداث. |
-| التأخير | Mission Delay Impact Analyzer | مقارنة السيناريو A مع B بعد إزاحة زمنية أو تغيير الموقع، مع الفروق والملاحظات. |
-| المقارنة | Landing Site Suitability | مقارنة مواقع متعددة تحت السيناريو نفسه، بأوزان مهمة قابلة للتغيير وترتيب نسبي. |
-| الطاقة والوصلة | Engineering estimates | حاسبة طاقة شمسية وحاسبة ميزانية وصلة باتصالات مبسطة، بافتراضات ظاهرة. |
-| المنهجية | Method & validation | مصادر البيانات، المعادلات، حالة التحقق، وحدود النموذج. |
+| Overview | Decision dashboard | Sun, Earth, and overlap KPIs, the visibility window, a mini timeline, and selected-timestamp details. |
+| Simulator | Mission Decision Simulator | Lunar map, celestial direction indicators, polar horizontal chart, and geometric/terrain visibility states. |
+| Horizon | 360° Lunar Horizon Intelligence | Sun/Earth azimuth and elevation, per-degree terrain horizon, obstruction distance, and clearance angle. |
+| Timeline | Mission Operations Timeline | Synchronized power and communication tracks, zoom/pan, transition points, and an event table. |
+| Delay | Mission Delay Impact Analyzer | Compare scenario A with B after a time shift or site change, with deltas and notes. |
+| Compare | Landing Site Suitability & Trade-off Analyzer | Compare multiple sites under the same scenario, with editable mission weights and relative ranking. |
+| Power & Link | Engineering estimates | Solar power calculator and simplified link-budget calculator with explicit assumptions. |
+| Method | Method & validation | Data sources, equations, validation status, and model limitations. |
 
-### 8.1 قاعدة البيانات والشفافية
+### 8.1 Data basis and transparency
 
-- **المواقع الثلاثة المعرفة مسبقًا** تستخدم أفقًا محسوبًا مسبقًا من DEM LOLA بدقة 5 m/px، وزوايا Sun/Earth من سلسلة JPL Horizons topocentric بخطوة ساعة، مع استيفاء زمني عند اللحظات الوسيطة.
-- **الإحداثيات المخصصة** مسموحة فقط داخل النطاق الجنوبي (−90° إلى −60°). تُبنى زوايا الشمس والأرض من سلسلة JPL حقيقية عند موقع مرجعي ثم تُعاد إسقاطها هندسيًا إلى الإحداثي المطلوب. هذا **تقريب معلن**، وليس سلسلة Horizons أصلية للموقع المخصص.
-- **التضاريس** متاحة في المتصفح فقط داخل نافذتي DEM المشحونتين. خارج النافذة يُعرض الأفق التضاريسي **غير متاح**، ولا تُملأ القيم ببيانات مُختلقة.
-- لا تُستخدم بيانات صناعية في نتائج الإنتاج. أي عرض توضيحي أو افتراض حسابي موسوم صراحةً.
-- كل بطاقة تعرض مصدرها: أفق مخزّن، أفق محسوب في المتصفح، أو رؤية هندسية فقط.
+- **The three predefined sites** use a precomputed horizon from the 5 m/px LOLA DEM, and topocentric Sun/Earth angles from JPL Horizons at a one-hour step, with temporal interpolation at intermediate times.
+- **Custom coordinates** are allowed only within the southern range (−90° to −60°). Sun/Earth angles are constructed from a real JPL series at a reference site and then geometrically re-projected to the requested coordinate. This is a **declared approximation**, not an original Horizons series for the custom site.
+- **Terrain** is available in the browser only inside the two shipped DEM windows. Outside those windows, the terrain horizon is shown as **unavailable**, and values are never filled with fabricated data.
+- No synthetic data is used in production results. Any illustrative display or calculation assumption is explicitly labeled.
+- Every card shows its source: stored horizon, browser-computed horizon, or geometric visibility only.
 
-### 8.2 الحسابات الأساسية
+### 8.2 Core calculations
 
-- تحويل الإحداثيات إلى الإطار الداخلي LMN south-polar، ثم حساب سمت وارتفاع الأجرام بالنسبة للراصد على السطح.
-- أفق تضاريسي بخطوة سمت 1°، وخطوة مسافة 10 m حتى 9 km، مع تصحيح انحناء كروي `d²/(2R)` ودون انكسار جوي.
-- حالات رؤية: مرئي هندسيًا، محجوب تضاريسيًا، تحت الأفق، وغير متاح عند غياب التضاريس.
-- نوافذ الرؤية والانقطاعات والتداخل وحدود الانتقال، مع تمييز الانقطاع المحدود بحافة المحاكاة عن الانقطاع الداخلي.
-- تقدير طاقة شمسية اختياري بأساس إضاءة `terrain` أو `geometric`، وتراجع معلن إلى geometric عند غياب التضاريس.
-- ميزانية وصلة مبسطة وفق FSPL: `20log10(d_km) + 20log10(f_MHz) + 32.44778` مع افتراضات هوائي وحرارة ضجيج ثابتة.
+- Transform coordinates into the internal LMN south-polar frame, then compute celestial azimuth and elevation relative to a surface observer.
+- Terrain horizon at 1° azimuth steps and 10 m distance steps up to 9 km, with spherical curvature correction `d²/(2R)` and no atmospheric refraction.
+- Visibility states: geometrically visible, terrain-obstructed, below the horizon, and unavailable when terrain is missing.
+- Visibility windows, blackouts, overlap, and transition boundaries, distinguishing simulation-edge-limited blackouts from internal blackouts.
+- Optional solar power estimate with a `terrain` or `geometric` lighting basis, with an explicit fallback to geometric when terrain is unavailable.
+- Simplified link budget using FSPL: `20log10(d_km) + 20log10(f_MHz) + 32.44778`, with fixed antenna and noise-temperature assumptions.
 
-### 8.3 التحقق والاختبارات
+### 8.3 Verification and tests
 
-- اختبارات آلية: `node --test _src/tests/navigator.test.cjs` — **15/15 ناجحة**.
-- تغطي الاختبارات تحويلات الإحداثيات، استيفاء الزمن، حجب الأفق، انتقالات الرؤية، حساب النوافذ، مقارنة السيناريوهات، الطاقة، والوصلة.
-- تحقق مستقل عبر إعادة إسقاط سلسلة موقع على مواقع أخرى: أقصى خطأ سمت **0.0918°** وأقصى خطأ ارتفاع **0.00984°**.
-- محاكاة سنوية بخطوة 60 دقيقة تعيد إنتاج نسب Sun/Earth المنشورة للموقع الأول ضمن **0.3 نقطة مئوية**.
-- الاختبارات تُشغَّل في GitHub Actions قبل بناء الموقع، ويُفشل النشر عند فشلها.
+- Automated tests: `node --test _src/tests/navigator.test.cjs` — **15/15 passing**.
+- Tests cover coordinate transforms, time interpolation, horizon obstruction, visibility transitions, window computation, scenario comparison, power, and link budget.
+- Independent validation by re-projecting one site's series onto other sites: maximum azimuth error **0.0918°** and maximum elevation error **0.00984°**.
+- A one-year simulation at a 60-minute step reproduces the published Sun/Earth percentages for the first site within **0.3 percentage points**.
+- Tests run in GitHub Actions before the site build, and deployment fails if they fail.
 
-### 8.4 التصدير والاستخدام
+### 8.4 Export and usage
 
-- تصدير نوافذ الرؤية الحالية إلى CSV (ستة مسارات: الشمس، الأرض، التداخل، الطاقة، الوصلة، والحالة المجمعة) أو JSON مع بيانات السيناريو والمصدر.
-- رابط الصفحة قابل للمشاركة، لكن الحالة **لا تُحفظ في خادم** ولا تُرسل إلى أي جهة.
-- الأرقام في الواجهة العربية RTL مغلّفة بعوازل LTR للحفاظ على ترتيب التواريخ والوحدات.
+- Export the current visibility windows to CSV (six layers: sun terrain, sun geometric, Earth terrain, Earth geometric, overlap, and power) or JSON with scenario and provenance data.
+- The page URL is shareable, but state is **not stored on a server** and is not sent anywhere.
+- Numbers in the Arabic RTL interface are wrapped in LTR isolates to preserve the intended order of dates and units.
 
 ---
 
-## 9. ما هو حقيقي، وما هو مشتق، وما هو تعليمي؟
+## 9. What is real, what is derived, and what is educational?
 
-| الفئة | أمثلة | كيف تُقرأ؟ |
+| Category | Examples | How to read it |
 |---|---|---|
-| **بيانات أصلية مسبقة التوليد** | ارتفاعات LOLA، سمت/ارتفاع الشمس والأرض من Horizons | قابلة للتتبع إلى منتج رسمي، لكنها لقطة ثابتة وليست لحظية. |
-| **مشتقات حسابية** | الأفق، نسب الإضاءة، أطول ظلام، حدود DEM | تعتمد على DEM ودقة النموذج وطريقة الحساب؛ راجع قسم التحقق. |
-| **مخرجات المُوجِّه** | نوافذ الرؤية، الانقطاعات، التداخل، ودرجات المواقع | مشتقة من البيانات نفسها؛ التضاريس غير متاحة خارج نافذتي DEM، والدرجات نسبية وليست توصية مهمة. |
-| **حاسبات تعليمية** | الطاقة، الوصلة، المقارنة، الإحداثيات | افتراضاتها ظاهرة وقابلة للتغيير؛ نتائجها ليست تصميمًا طيرانًا. |
-| **محتوى افتراضي/توضيحي** | سيناريوهات ومقارنات وأمثلة | موسومة `[!H]` أو `[!S]` حيثما ينطبق. |
-| **معلومات مهام** | حالات CLPS وتواريخها | موثقة حتى 2026-11-04؛ المواعيد المستقبلية قابلة للتغيير. |
+| **Original pre-generated data** | LOLA elevations; Sun/Earth azimuth and elevation from Horizons | Traceable to an official product, but a fixed snapshot rather than live data. |
+| **Computational derivatives** | Horizon, illumination percentages, longest darkness, DEM bounds | Depends on the DEM, model resolution, and calculation method; see the validation section. |
+| **Navigator outputs** | Visibility windows, blackouts, overlap, and site scores | Derived from the same data; terrain is unavailable outside the two DEM windows, and scores are relative rather than a mission recommendation. |
+| **Educational calculators** | Power, link, comparison, coordinates | Their assumptions are explicit and editable; results are not flight design. |
+| **Hypothetical/illustrative content** | Scenarios, comparisons, and examples | Tagged `[!H]` or `[!S]` where applicable. |
+| **Mission information** | CLPS statuses and dates | Documented through 2026-11-04; future dates may change. |
 
-### افتراضات الحاسبات
+### Calculator assumptions
 
-- **الطاقة:** إشعاع شمسي ثابت 1,361.6 W/m²، كفاءة ألواح، معامل حشو، زاوية سقوط، فقد، وحمل ثابت. لا نمذجة حرارية ولا تدهور سنوي ولا ظل جزئي من الهياكل. أساس الإضاءة في المُوجِّه اختياري: تضاريسي أو هندسي، مع تراجع معلن إلى الهندسي عند غياب DEM.
-- **الوصلة:** FSPL، هوائي مثالي، قدرة إرسال، كسب، فقد، معدل بيانات، وحرارة ضجيج ثابتة. لا تأثير للبلازما أو الغبار أو أخطاء التوجيه أو المطر (لا مطر على القمر، لكن الافتراض يظل مبسطًا).
-- **المقارنة:** أوزان تعليمية يحددها المستخدم؛ النتيجة ليست توصية مهمة. عند غياب معيار لبعض المواقع يُعاد تطبيع الأوزان بدل اعتبار القيمة صفرًا.
+- **Power:** constant solar irradiance of 1,361.6 W/m², panel efficiency, packing factor, incidence angle, losses, and constant load. No thermal modeling, annual degradation, or partial shading from structures. The navigator's lighting basis is selectable: terrain or geometric, with an explicit fallback to geometric when DEM is unavailable.
+- **Link:** FSPL, ideal antenna, transmit power, gain, losses, data rate, and fixed noise temperature. No plasma, dust, pointing errors, or rain effects (there is no rain on the Moon, but the assumption remains simplified).
+- **Comparison:** user-defined educational weights; the result is not a mission recommendation. When a criterion is missing for some sites, weights are renormalized instead of treating the value as zero.
 
 ---
 
-## 10. المنهجية والتحقق
+## 10. Methodology and validation
 
-### 10.1 خط الأنابيب
+### 10.1 Pipeline
 
 ```text
 LOLA GeoTIFF (5 m/px)
-  → قراءة الارتفاعات داخل نافذة محددة
-  → اختيار نقاط مشتقة
-  → حساب الأفق 360° (interpolation على الحواف)
-  → downsampling إلى 20 m/px للعرض
-  → دمج زوايا الشمس/الأرض من Horizons
-  → حساب ساعات الشمس والأرض والأطول المتصلة
+  → read elevations within a defined window
+  → select derived points
+  → compute 360° horizon (interpolation at edges)
+  → downsample to 20 m/px for display
+  → merge Sun/Earth angles from Horizons
+  → compute Sun/Earth hours and longest continuous periods
   → JSON + DEM binaries + manifest (SHA-256)
 ```
 
-### 10.2 فحوصات البناء
+### 10.2 Build checks
 
-- `python3 _src/build.py` يفحص كل رابط داخلي وكل مرساة، ويفشل عند وجود هدف مفقود.
-- يتحقق البناء من أحجام وبصمات SHA-256 في `assets/data/manifest.json` ويفشل إذا تغيّر ملف بيانات دون تحديث البصمات.
-- `python3 _src/build_data.py --out assets --manifest-only` يعيد حساب بصمات ملفات البيانات المشتقة ويحفظ تاريخ التوليد الأصلي ما لم يُمرَّر `--generated`.
-- يتحقق من وجود 44 مصدرًا ويطبع عدد مصطلحات المسرد.
-- يبني فهرس البحث من النص بعد التوسيع، وينظف وسوم الاقتباس من المقتطفات.
-- `node --test _src/tests/navigator.test.cjs` يشغّل 15 اختبارًا لمحرك المُوجِّه، ويُستدعى داخل GitHub Actions قبل البناء.
-- فُحصت واجهة المُوجِّه في Chromium عند 1440px و390px: تحميل التبويبات الثمانية، وتدوين الأخطاء، والتجاوز الأفقي، والتفاعل مع الخط الزمني والتأخير والمقارنة والطاقة، وتصدير CSV. لا أخطاء JavaScript ولا تجاوز أفقي.
-- توجد اختبارات تطوير منفصلة (خارج المشروع) شغّلت 52 فحصًا في Chromium: تحميل صفحات الموقع عند عرضين، وعدّ المحتوى، والتنقل، والبحث، والاختبار، والخريطة، وتبديل المواقع، وتحديث الحاسبات. نجحت جميعها في آخر تشغيل.
-- بعد النشر على GitHub Pages في 2026-11-06، أُعيد تشغيل السلسلة نفسها ضد الرابط العام: **52/52**، مع التحقق من HTTPS، و`sitemap.xml`، و`robots.txt`، وصفحة 404 لمسار متداخل، وعدم وجود صور مكسورة أو أخطاء JavaScript.
-- تم فحص التخطيط عند عرض 1440px و390px: لا يوجد تجاوز أفقي، ولا صور مكسورة، ولا أخطاء JavaScript، ولا معرّفات مكررة في الصفحات المختبرة.
+- `python3 _src/build.py` checks every internal link and anchor, and fails when a target is missing.
+- The build verifies sizes and SHA-256 fingerprints in `assets/data/manifest.json`, and fails if a data file changes without updated fingerprints.
+- `python3 _src/build_data.py --out assets --manifest-only` recomputes fingerprints for derived data files and preserves the original generation date unless `--generated` is passed.
+- Verifies that 44 sources exist and prints the glossary term count.
+- Builds the search index from expanded text, and strips citation tags from snippets.
+- `node --test _src/tests/navigator.test.cjs` runs 15 navigator engine tests and is invoked inside GitHub Actions before the build.
+- The navigator interface was checked in Chromium at 1440px and 390px: loading all eight tabs, error logging, horizontal overflow, timeline/delay/comparison/power interactions, and CSV export. No JavaScript errors and no horizontal overflow.
+- Separate development tests (outside the project) ran 52 checks in Chromium: loading site pages at two widths, content counts, navigation, search, quiz, map, site switching, and calculator updates. All passed in the last run.
+- After deployment to GitHub Pages on 2026-11-06, the same suite was rerun against the public URL: **52/52**, verifying HTTPS, `sitemap.xml`, `robots.txt`, a nested-path 404 page, and the absence of broken images or JavaScript errors.
+- Layout was checked at 1440px and 390px: no horizontal overflow, no broken images, no JavaScript errors, and no duplicate IDs on the tested pages.
 
-### 10.3 التحقق من الروابط الخارجية
+### 10.3 External link verification
 
-فُحصت الروابط الأربعة والأربعون في 2026-11-04/05:
+The 44 links were checked on 2026-11-04/05:
 
-- **42 رابطًا** أعادت استجابة 2xx مباشرة.
-- **S1** (صفحة التحدي) أعادت 200 عبر `curl -k`، بينما رفض مخزن الشهادات المحلي سلسلة SSL.com. المتصفحات الحديثة لديها السلسلة عادةً؛ أعد التحقق في بيئتك.
-- **S42** (Blue Origin Blue Moon Mark 1) أعادت 429 من عنوان التحقق بسبب تحديد المعدل، وليس لأن الصفحة غير موجودة. أعد المحاولة لاحقًا أو افتحها في المتصفح.
-- **S29** يعيد توجيهًا حاليًا إلى `quickmap.lroc.im-ldi.com`، وهذا سلوك الموقع وليس رابطًا مكسورًا.
+- **42 links** returned a direct 2xx response.
+- **S1** (challenge page) returned 200 via `curl -k`, while the local certificate store rejected the SSL.com chain. Modern browsers usually have the chain; re-verify in your environment.
+- **S42** (Blue Origin Blue Moon Mark 1) returned 429 from the verification address due to rate limiting, not because the page is missing. Retry later or open it in a browser.
+- **S29** currently redirects to `quickmap.lroc.im-ldi.com`, which is site behavior and not a broken link.
 
-الروابط الخارجية قد تتغير. عند وجود رابط مكسور، ابحث بعنوان المصدر في الموقع الرسمي وسجّل التغيير بدل استبداله بصمت.
-
----
-
-## 11. حدود معروفة
-
-1. **ليست أداة تخطيط مهام.** لا تحسب مسار الهبوط، ولا استهلاك الوقود، ولا مخاطر الحطام، ولا تضاريس الهبوط الدقيقة.
-2. **سنة واحدة فقط.** لا توجد دراسة مناخية متعددة السنوات؛ الشمس والأرض محسوبتان لسنة عينة واحدة.
-3. **نقطتان DEM فقط.** لا تغطي الخريطة القطب كله، ولا توجد طبقات PSR جاهزة أو نموذج حراري.
-4. **لا SPICE وقت التشغيل.** استُخدمت Horizons مسبقًا؛ لم تُثبَّت `spiceypy` في بيئة البناء، لذا لم يُنفَّذ تحقق مستقل عبر نوى SPICE.
-5. **الحاسبات تعليمية.** الطاقة والوصلة والمقارنة ليست بديلًا عن تحليل هندسي معتمد.
-6. **حالة المهام مؤرخة.** أي تغيير بعد 2026-11-04 غير مشمول.
-7. **الموارد الرسمية للتحدي لم تكن منشورة.** صفحة التحدي تقول إن الموارد ستُتاح الجمعة 13 نوفمبر 2026. لم نخترع متطلبات أو معايير تقييم غير منشورة.
-8. **لا معايير تقييم رسمية.** لم نجد معايير نشرتها NASA لهذا التحدي، لذلك لا توجد ادعاءات عنها في الموقع.
-9. **الوصولية.** يوجد skip link، وتسميات، وتباين قوي، ولوحة مفاتيح؛ لكن لم تُجرَ مراجعة كاملة مع قارئ شاشة أو تدقيق WCAG رسمي.
-10. **البحث محلي.** فهرس ثابت بسيط، وليس بحثًا دلاليًا أو متجهيًا.
-11. **ملفات DEM الأصلية غير مضمّنة.** المشروع يشحن نسخة عرض 20 m/px فقط.
-12. **لا خادم خلفي.** لا حسابات على الخادم، ولا قاعدة بيانات، ولا مصادقة.
-13. **الإحداثيات المخصصة تقريبية.** زوايا Sun/Earth تُبنى من سلسلة JPL عند موقع مرجعي ثم تُعاد إسقاطها هندسيًا؛ ليست سلسلة topocentric أصلية للإحداثي المخصص.
-14. **الأفق التضاريسي محدود بالنوافذ المشحونة.** داخل نافذتي LOLA فقط؛ خارجها يُعرض «غير متاح» ولا تُستنتج قيم.
-15. **المُوجِّه ليس أداة طيران.** لا يحسب مسار الهبوط أو الوقود أو الحرارة أو الغبار أو مخاطر الحطام، ولا يقدم توصية موقع رسمية.
-16. **الاتصالات مبسطة.** FSPL وافتراضات هوائي ثابتة؛ لا نمذجة بلازما أو غبار أو أخطاء توجيه.
+External links may change. If a link breaks, search for the source title on the official site and record the change instead of silently replacing it.
 
 ---
 
-## 12. الأمان والخصوصية
+## 11. Known limitations
 
-- لا مفاتيح API، ولا أسرار، ولا اتصالات خارجية وقت العرض.
-- لا تحليلات، ولا كوكيز تتبع، ولا صور من نطاقات خارجية.
-- الخطوط محلية داخل `assets/fonts/`.
-- التخزين المحلي يُستخدم فقط لحفظ تقدّم خارطة الطريق (`localStorage`)؛ لا يُرسل إلى أي مكان.
-- حالة سيناريو المُوجِّه تبقى في الذاكرة أثناء الجلسة، ولا تُرسل إلى خادم ولا تُحفظ في `localStorage`.
-- البحث يعمل داخل المتصفح من `assets/data/search.json`.
-
----
-
-## 13. النشر على GitHub Pages
-
-- **المستودع:** <https://github.com/elhussienysabry/Lunar-portal>
-- **الرابط العام:** <https://elhussienysabry.github.io/Lunar-portal/>
-- **المُوجِّه المنشور:** <https://elhussienysabry.github.io/Lunar-portal/navigator.html>
-- **الاستضافة:** GitHub Pages لمستودع عام، مع HTTPS تلقائي ونشر من GitHub Actions. لا حاجة إلى خادم أو قاعدة بيانات أو مفاتيح.
-- **سير العمل:** `.github/workflows/pages.yml`، ويعمل عند كل `push` إلى الفرع `main` أو يدويًا عبر `workflow_dispatch`.
-- **البناء:** Python 3.12 + `requirements.txt`، ثم `node --test _src/tests/navigator.test.cjs`، ثم `python _src/build.py` مع ضبط `SITE_URL` من ناتج `actions/configure-pages`. فشل الاختبارات يوقف النشر.
-- **مخرجات النشر:** مجلد `_site` الناتج عن البناء، ويضم صفحات HTML و`assets/` و`robots.txt` و`sitemap.xml` و`.nojekyll`.
-- **الإعداد لمرة واحدة:** Settings → Pages → Source = **GitHub Actions**. بعدها يتولى سير العمل البناء والنشر تلقائيًا.
-- **متابعة النشر:** تبويب Actions → آخر تشغيل لـ «Build and deploy to GitHub Pages» → عنوان `github-pages`.
-
-الموقع ثابت بالكامل؛ يمكن أيضًا نشر مخرجات `_site` على Netlify أو Cloudflare Pages أو أي خادم ملفات ثابت. لا توجد متغيرات بيئة سرية، ولا اتصال بقاعدة بيانات.
-
-> حدود GitHub Pages المجانية وقواعد الاستخدام قابلة للتغيير؛ راجع <https://docs.github.com/pages/getting-started-with-github-pages/github-pages-limits> قبل الاعتماد على أحجام كبيرة أو نطاق مخصص.
+1. **Not a mission-planning tool.** It does not calculate the descent trajectory, fuel consumption, debris risk, or precise landing terrain.
+2. **One year only.** There is no multi-year climate study; the Sun and Earth are computed for one sample year.
+3. **Only two DEM windows.** The map does not cover the entire polar region, and there are no ready-made PSR layers or thermal model.
+4. **No runtime SPICE.** Horizons was used in advance; `spiceypy` was not installed in the build environment, so no independent verification through SPICE kernels was performed.
+5. **Calculators are educational.** Power, link, and comparison are not a substitute for certified engineering analysis.
+6. **Mission status is dated.** Any change after 2026-11-04 is not included.
+7. **Official challenge resources were not published.** The challenge page stated that resources would be available on Friday, November 13, 2026. We did not invent unpublished requirements or evaluation criteria.
+8. **No official evaluation criteria.** We found no evaluation criteria published by NASA for this challenge, so the site makes no claims about them.
+9. **Accessibility.** There is a skip link, labels, strong contrast, and keyboard support; however, no full screen-reader review or formal WCAG audit has been performed.
+10. **Search is local.** A simple static index, not semantic or vector search.
+11. **Original DEM files are not bundled.** The project ships only a 20 m/px display version.
+12. **No backend.** No server-side calculations, database, or authentication.
+13. **Custom coordinates are approximate.** Sun/Earth angles are constructed from a JPL series at a reference site and then geometrically re-projected; they are not an original topocentric series for the custom coordinate.
+14. **Terrain horizon is limited to the shipped windows.** Only inside the two LOLA windows; outside them, "unavailable" is shown and no values are inferred.
+15. **The navigator is not a flight tool.** It does not calculate the descent trajectory, fuel, thermal behavior, dust, or debris risk, and it does not provide an official site recommendation.
+16. **Communications are simplified.** FSPL and fixed antenna assumptions; no plasma, dust, or pointing-error modeling.
 
 ---
 
-## 14. الاستخدام والانتماء
+## 12. Security and privacy
 
-- المحتوى العربي والكود مكتوبان لهذا المشروع التعليمي.
-- بيانات LOLA وHorizons ومنتجات NASA تخضع لشروط استخدام NASA؛ راجع S30. لا يُستخدم شعار NASA للإيحاء باعتماد رسمي.
-- الصور المشتقة في `assets/img/` بُنيت من بيانات LOLA، ويُشار إلى مصدرها في الصفحات. عند إعادة الاستخدام، راجع شروط المصدر الأصلي.
-- أسماء المهام والمزوّدين وعلاماتهم التجارية ملك لأصحابها.
+- No API keys, secrets, or runtime external connections.
+- No analytics, tracking cookies, or images from external domains.
+- Fonts are local inside `assets/fonts/`.
+- Local storage is used only to save roadmap progress (`localStorage`); it is not sent anywhere.
+- The navigator scenario state remains in memory for the session, is not sent to a server, and is not saved in `localStorage`.
+- Search runs in the browser from `assets/data/search.json`.
 
 ---
 
-## 15. الحالة عند التسليم
+## 13. Deployment on GitHub Pages
 
-- 21 صفحة مبنية، 15 مختبرًا يعمل، مُوجِّه متكامل بثمانية تبويبات، 130 مصطلحًا، 44 مصدرًا.
-- محرك المُوجِّه مغطى بـ 15 اختبارًا آليًا تعمل في البناء والنشر.
-- بيانات LOLA/Horizons مسبقة التوليد ومضمنة؛ لا بيانات صناعية في نتائج الإنتاج.
-- لا أزرار ميتة، ولا تكاملات وهمية، ولا مفاتيح.
-- لقطة المحتوى: **2026-11-04**. التحدي: **14–15 نوفمبر 2026**.
+- **Repository:** <https://github.com/elhussienysabry/Lunar-portal>
+- **Public URL:** <https://elhussienysabry.github.io/Lunar-portal/>
+- **Deployed navigator:** <https://elhussienysabry.github.io/Lunar-portal/navigator.html>
+- **Hosting:** GitHub Pages for a public repository, with automatic HTTPS and deployment from GitHub Actions. No server, database, or keys are required.
+- **Workflow:** `.github/workflows/pages.yml`, triggered on every `push` to the `main` branch or manually via `workflow_dispatch`.
+- **Build:** Python 3.12 + `requirements.txt`, then `node --test _src/tests/navigator.test.cjs`, then `python _src/build.py` with `SITE_URL` set from the `actions/configure-pages` output. Test failure stops deployment.
+- **Deployment output:** the `_site` directory produced by the build, containing HTML pages, `assets/`, `robots.txt`, `sitemap.xml`, and `.nojekyll`.
+- **One-time setup:** Settings → Pages → Source = **GitHub Actions**. After that, the workflow handles building and deployment automatically.
+- **Deployment monitoring:** Actions tab → latest "Build and deploy to GitHub Pages" run → `github-pages` environment.
 
-لأي تصحيح علمي أو رابط متغير، عدّل `_src/pages/` أو `_src/sources.py` ثم أعد البناء؛ لا تعدّل HTML المبني يدويًا.
+The site is fully static; the `_site` output can also be deployed to Netlify, Cloudflare Pages, or any static file server. There are no secret environment variables and no database connection.
+
+> GitHub Pages free-tier limits and usage policies may change; see <https://docs.github.com/pages/getting-started-with-github-pages/github-pages-limits> before relying on large sizes or a custom domain.
+
+---
+
+## 14. Usage and attribution
+
+- The Arabic content and code were written for this educational project.
+- LOLA, Horizons, and NASA products are subject to NASA usage terms; see S30. The NASA logo is not used to imply official endorsement.
+- Derived images in `assets/img/` were built from LOLA data, and their source is cited on the pages. When reusing them, review the original source terms.
+- Mission and provider names and trademarks belong to their owners.
+
+---
+
+## 15. Delivery status
+
+- 21 built pages, 15 working labs, an integrated navigator with eight tabs, 130 glossary terms, and 44 sources.
+- The navigator engine is covered by 15 automated tests that run during build and deployment.
+- LOLA/Horizons data is pre-generated and bundled; no synthetic data is used in production results.
+- No dead buttons, fake integrations, or keys.
+- Content snapshot: **2026-11-04**. Challenge: **November 14–15, 2026**.
+
+For any scientific correction or changed link, edit `_src/pages/` or `_src/sources.py` and rebuild; do not edit generated HTML manually.
