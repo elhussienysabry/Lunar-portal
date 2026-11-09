@@ -14,10 +14,18 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/ibm-plex-sans-arabic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
+{% if page.slug == 'navigator' %}
+<link rel="stylesheet" href="assets/css/navigator.css">
+{% endif %}
 <script defer src="assets/js/app.js"></script>
+{% if page.slug == 'navigator' %}
+<script defer src="assets/js/navigator-engine.js"></script>
+<script defer src="assets/js/navigator.js"></script>
+{% else %}
 <script defer src="assets/js/labs.js"></script>
 <script defer src="assets/js/labs-tools.js"></script>
 <script defer src="assets/js/labs-content.js"></script>
+{% endif %}
 </head>
 <body class="page-{{ page.slug }}">
 <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
@@ -150,7 +158,7 @@
     </nav>
   </aside>
 </div>
-{% elif page.slug in ['index','labs','search'] %}
+{% elif page.slug in ['index','labs','search','navigator'] %}
 {{ content }}
 {% else %}
 <div class="container prose">{{ content }}</div>

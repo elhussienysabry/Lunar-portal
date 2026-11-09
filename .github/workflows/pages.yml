@@ -37,6 +37,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: Run navigator engine tests
+        run: node --test _src/tests/navigator.test.cjs
+
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v6

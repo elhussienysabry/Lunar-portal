@@ -1,0 +1,607 @@
+<section class="nav-hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <div class="nav-hero-copy">
+      <p class="kicker"><span class="dot"></span>MISSION NAVIGATOR · مساحة قرار واحدة</p>
+      <h1>مُوجِّه المهمة القمرية</h1>
+      <p class="lead">
+        اختر موقع هبوط، وحدّد نافذة زمنية، ثم اقرأ الشمس والأرض كما يراها مراقب على سطح القمر.
+        خمس وحدات مترابطة: محاكاة المهمة، تحليل تأخير الإطلاق، أفق 360°، مقارنة المواقع، والخط الزمني التشغيلي.
+      </p>
+      <div class="meta-row">
+        <span class="tag tag-data">REAL · JPL Horizons</span>
+        <span class="tag tag-data">REAL · LOLA 5 m</span>
+        <span class="meta-chip">نافذة البيانات <span class="mono">2026-11-01 → 2027-11-01</span></span>
+        <span class="meta-chip">UTC داخليًا</span>
+      </div>
+    </div>
+    <div class="nav-hero-panel">
+      <p class="nav-hero-panel-title">حالة البيانات</p>
+      <ul class="nav-hero-list">
+        <li><b>الشمس والأرض</b><span>JPL Horizons — ثلاث نقاط، خطوة ساعة</span></li>
+        <li><b>التضاريس</b><span>LOLA/PGDA — أفق 1°، نافذتا DEM</span></li>
+        <li><b>الإحداثيات المخصصة</b><span>هندسة مشتقة مُتحقَّق منها؛ تضاريس فقط داخل DEM</span></li>
+        <li><b>الطاقة والوصلة</b><span>تقديرات هندسية بافتراضات معلنة</span></li>
+      </ul>
+      <p class="nav-hero-fine">ليست توصية رسمية من ناسا. النقاط الثلاث نقاط تحليل مشتقة، وليست مواقع هبوط رسمية.</p>
+    </div>
+  </div>
+</section>
+
+<div class="container-wide nav-workspace">
+  <section class="nav-scenario" id="scenarioBar" aria-label="إعداد السيناريو المشترك">
+    <div class="nav-scenario-head">
+      <div>
+        <span class="lab-kicker">SHARED SCENARIO · سيناريو مشترك بين كل الوحدات</span>
+        <h2>حدّد الموقع والزمن</h2>
+      </div>
+      <span class="lab-status" id="scenarioStatus"><span class="dot"></span>جارٍ التهيئة…</span>
+    </div>
+    <div class="nav-scenario-grid">
+      <div class="field nav-field-wide">
+        <label for="siteSelect">موقع الهبوط</label>
+        <select id="siteSelect"></select>
+        <span class="hint">المواقع الثلاثة معطاة بإحداثيات Seleneographic جنوبية.</span>
+      </div>
+      <div class="field">
+        <label for="startDate">تاريخ البداية (UTC)</label>
+        <input type="date" id="startDate" min="2026-11-01" max="2027-10-31" value="2026-11-20">
+      </div>
+      <div class="field">
+        <label for="startTime">ساعة البداية (UTC)</label>
+        <input type="time" id="startTime" value="00:00" step="60">
+      </div>
+      <div class="field">
+        <label for="durationHours">المدة (ساعة)</label>
+        <input type="number" id="durationHours" min="1" max="8760" step="1" value="168">
+      </div>
+      <div class="field">
+        <label for="stepMinutes">الفاصل الزمني</label>
+        <select id="stepMinutes">
+          <option value="10">10 دقائق</option>
+          <option value="15">15 دقيقة</option>
+          <option value="30" selected>30 دقيقة</option>
+          <option value="60">60 دقيقة</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tzOffset">العرض الزمني</label>
+        <select id="tzOffset">
+          <option value="0" selected>UTC</option>
+          <option value="180">UTC+03:00</option>
+          <option value="120">UTC+02:00</option>
+          <option value="60">UTC+01:00</option>
+          <option value="-300">UTC−05:00</option>
+          <option value="-480">UTC−08:00</option>
+        </select>
+      </div>
+      <div class="field nav-field-action">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary" type="button" id="runScenario">تشغيل المحاكاة</button>
+      </div>
+    </div>
+    <div class="nav-scenario-sub">
+      <div class="segmented" id="durationPresets" role="group" aria-label="مدد جاهزة">
+        <button type="button" data-hours="24">24 ساعة</button>
+        <button type="button" data-hours="72">72 ساعة</button>
+        <button type="button" data-hours="168" class="is-active">7 أيام</button>
+        <button type="button" data-hours="720">30 يومًا</button>
+      </div>
+      <span class="lab-note">كل الحسابات بتوقيت UTC؛ تغيير العرض الزمني لا يغيّر النتائج.</span>
+    </div>
+    <div class="nav-custom" id="customSiteFields" hidden>
+      <div class="nav-custom-head">
+        <strong>إحداثيات مخصصة</strong>
+        <span class="tag tag-assumption">SOUTH POLAR · −90° إلى −60°</span>
+      </div>
+      <div class="nav-scenario-grid">
+        <div class="field"><label for="customName">اسم الموقع</label><input type="text" id="customName" value="موقع مخصص" maxlength="40"></div>
+        <div class="field"><label for="customLat">خط العرض (° سالب)</label><input type="number" id="customLat" min="-90" max="-60" step="0.0001" value="-89.70"></div>
+        <div class="field"><label for="customLon">خط الطول الشرقي (°)</label><input type="number" id="customLon" min="0" max="360" step="0.0001" value="210"></div>
+        <div class="field nav-field-action"><label>&nbsp;</label><button class="btn btn-ghost" type="button" id="applyCustom">استخدم الإحداثيات</button></div>
+      </div>
+      <p class="lab-note" id="customPolicyNote">
+        الهندسة السماوية للموقع المخصص تُشتق من سلسلة JPL Horizons لموقع مرجعي عبر تحويل إطار مُتحقَّق منه.
+        التضاريس تُحسب فقط إذا وقع الموقع داخل نافذة DEM مشحونة؛ وإلا تُعرض النتائج الهندسية فقط مع تعطيل نتائج التضاريس.
+      </p>
+    </div>
+  </section>
+
+  <div class="nav-status-line" id="dataStatus" role="status" aria-live="polite"></div>
+
+  <nav class="nav-tabs" role="tablist" aria-label="وحدات مُوجِّه المهمة">
+    <button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-tab="overview">نظرة عامة</button>
+    <button type="button" role="tab" id="tab-simulator" aria-controls="panel-simulator" aria-selected="false" data-tab="simulator">المحاكي</button>
+    <button type="button" role="tab" id="tab-horizon" aria-controls="panel-horizon" aria-selected="false" data-tab="horizon">أفق 360°</button>
+    <button type="button" role="tab" id="tab-timeline" aria-controls="panel-timeline" aria-selected="false" data-tab="timeline">الخط الزمني</button>
+    <button type="button" role="tab" id="tab-delay" aria-controls="panel-delay" aria-selected="false" data-tab="delay">تأخير الإطلاق</button>
+    <button type="button" role="tab" id="tab-compare" aria-controls="panel-compare" aria-selected="false" data-tab="compare">مقارنة المواقع</button>
+    <button type="button" role="tab" id="tab-engineering" aria-controls="panel-engineering" aria-selected="false" data-tab="engineering">الطاقة والوصلة</button>
+    <button type="button" role="tab" id="tab-method" aria-controls="panel-method" aria-selected="false" data-tab="method">البيانات والمنهجية</button>
+  </nav>
+
+  <div id="navPanels">
+    <!-- ================= OVERVIEW ================= -->
+    <section class="nav-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-panel="overview">
+      <div class="nav-kpis">
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">الموقع</span>
+          <strong id="ovSite">—</strong>
+          <small id="ovCoords">—</small>
+        </article>
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">نافذة المحاكاة</span>
+          <strong id="ovWindow">—</strong>
+          <small id="ovDuration">—</small>
+        </article>
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">الشمس المتاحة</span>
+          <strong id="ovSunPct" class="green">—</strong>
+          <small id="ovSunState">—</small>
+        </article>
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">رؤية الأرض</span>
+          <strong id="ovEarthPct" class="cyan">—</strong>
+          <small id="ovEarthState">—</small>
+        </article>
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">تداخل الشمس والأرض</span>
+          <strong id="ovOverlap" class="amber">—</strong>
+          <small id="ovOverlapBasis">—</small>
+        </article>
+        <article class="nav-kpi">
+          <span class="nav-kpi-label">الحدث التالي</span>
+          <strong id="ovNext">—</strong>
+          <small id="ovNextBody">—</small>
+        </article>
+      </div>
+
+      <div class="nav-grid-2">
+        <div class="lab-panel">
+          <h4>لمحة عن السيناريو · كل الطبقات</h4>
+          <div class="canvas-wrap nav-mini"><canvas id="overviewTimeline" aria-label="خط زمني مصغر لطبقات الشمس والأرض والتداخل"></canvas></div>
+          <div class="nav-legend" id="overviewLegend"></div>
+          <p class="lab-note">اضغط على الشريط لتحديد زمن، أو افتح «الخط الزمني» للتحكم الكامل.</p>
+        </div>
+        <div class="lab-panel">
+          <h4>اللحظة المحددة</h4>
+          <div class="readout-grid nav-readouts-4">
+            <div class="readout"><small>الزمن (UTC)</small><b id="ovTime">—</b></div>
+            <div class="readout"><small>سمت الشمس</small><b id="ovSunAz">—</b></div>
+            <div class="readout"><small>ارتفاع الشمس</small><b id="ovSunEl">—</b></div>
+            <div class="readout"><small>سمت الأرض</small><b id="ovEarthAz">—</b></div>
+            <div class="readout"><small>ارتفاع الأرض</small><b id="ovEarthEl">—</b></div>
+            <div class="readout"><small>حالة الشمس</small><b id="ovSunNow">—</b></div>
+            <div class="readout"><small>حالة الأرض</small><b id="ovEarthNow">—</b></div>
+            <div class="readout"><small>الأفق عند الشمس</small><b id="ovSunHorizon">—</b></div>
+          </div>
+          <p class="lab-note" id="ovSelectedNote">—</p>
+        </div>
+      </div>
+
+      <div class="nav-grid-2">
+        <div class="lab-panel">
+          <h4>أسئلة القرار الخمسة</h4>
+          <ol class="nav-questions">
+            <li><b>أين الشمس؟</b><span>سمت وارتفاع محسوبان بالنسبة لمراقب على السطح، لا لمركز القمر.</span></li>
+            <li><b>هل تُرى فعليًا؟</b><span>مقارنة الحافة العليا للشمس مع أفق التضاريس في اتجاهها.</span></li>
+            <li><b>أين الأرض؟</b><span>هندسة الرؤية المباشرة، منفصلة تمامًا عن أداء وصلة الراديو.</span></li>
+            <li><b>كيف يتغيران؟</b><span>نوافذ الإضاءة والاتصال، وأطول انقطاع، والتداخل الزمني.</span></li>
+            <li><b>ماذا لو تغيّر القرار؟</b><span>تأخير 24/48/72 ساعة أو مقارنة موقع بديل ضمن السيناريو نفسه.</span></li>
+          </ol>
+        </div>
+        <div class="lab-panel">
+          <h4>تحذيرات وحدود النتيجة</h4>
+          <ul class="nav-warnings" id="overviewWarnings"></ul>
+          <p class="lab-note">
+            «الرؤية» هنا هندسية: الحافة العليا فوق الأفق أو فوق التضاريس. لا تعني نجاح اتصال أو تشغيل جهاز.
+            الطاقة والوصلة تقديرات اختيارية بافتراضات يحددها المستخدم.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SIMULATOR ================= -->
+    <section class="nav-panel" id="panel-simulator" role="tabpanel" aria-labelledby="tab-simulator" data-panel="simulator" hidden>
+      <div class="nav-grid-sim">
+        <div class="lab-panel">
+          <h4>خريطة الموقع والتوجيه</h4>
+          <div class="nav-map" id="simMap">
+            <img src="assets/img/map_mosaic.jpg" alt="خريطة تضاريس القطب الجنوبي للقمر من LOLA" loading="lazy" decoding="async">
+            <div class="nav-map-overlay" id="mapOverlay" aria-hidden="true"></div>
+            <span class="nav-map-scale">20 km</span>
+          </div>
+          <div class="nav-map-legend">
+            <span><i class="dot" style="background:#5ee0a0"></i> نقطة تحليل</span>
+            <span><i class="dot" style="background:#ffb454"></i> موقع مخصص</span>
+            <span><i class="line sun"></i> اتجاه الشمس</span>
+            <span><i class="line earth"></i> اتجاه الأرض</span>
+          </div>
+          <div class="nav-site-card" id="siteCard">
+            <span class="card-kicker" id="siteRole">—</span>
+            <h3 id="siteName">—</h3>
+            <p class="mono" id="siteEn">—</p>
+            <p id="siteNote">—</p>
+          </div>
+        </div>
+        <div class="lab-panel">
+          <h4>اتجاهات الشمس والأرض</h4>
+          <div class="canvas-wrap nav-compass"><canvas id="directionCanvas" aria-label="بوصلة محلية لاتجاه الشمس والأرض"></canvas></div>
+          <div class="nav-time-control">
+            <button class="btn btn-ghost btn-sm" type="button" id="simPlay" aria-pressed="false">▶ تشغيل</button>
+            <input type="range" id="simTimeSlider" min="0" max="336" step="1" value="0" aria-label="زمن المحاكاة">
+            <output id="simTimeOut" class="mono">—</output>
+          </div>
+          <div class="readout-grid nav-readouts-4">
+            <div class="readout"><small>سمت الشمس</small><b id="simSunAz">—</b></div>
+            <div class="readout"><small>ارتفاع الشمس</small><b id="simSunEl">—</b></div>
+            <div class="readout"><small>أفق التضاريس</small><b id="simSunHorizon">—</b></div>
+            <div class="readout"><small>حالة الشمس</small><b id="simSunState">—</b></div>
+            <div class="readout"><small>سمت الأرض</small><b id="simEarthAz">—</b></div>
+            <div class="readout"><small>ارتفاع الأرض</small><b id="simEarthEl">—</b></div>
+            <div class="readout"><small>أفق التضاريس</small><b id="simEarthHorizon">—</b></div>
+            <div class="readout"><small>حالة الأرض</small><b id="simEarthState">—</b></div>
+          </div>
+          <p class="lab-note" id="simNote">—</p>
+        </div>
+      </div>
+
+      <div class="nav-grid-2" style="margin-top:14px">
+        <div class="lab-panel">
+          <h4>مسار 24 ساعة · السمت والارتفاع</h4>
+          <div class="canvas-wrap nav-sky"><canvas id="skyCanvas" aria-label="مسار الشمس والأرض خلال 24 ساعة فوق أفق التضاريس"></canvas></div>
+          <div class="nav-legend">
+            <span><i class="line sun"></i> الشمس</span>
+            <span><i class="line earth"></i> الأرض</span>
+            <span><i class="line horizon"></i> أفق التضاريس</span>
+            <span><i class="line zero"></i> الأفق الهندسي 0°</span>
+          </div>
+        </div>
+        <div class="lab-panel">
+          <h4>الأحداث القادمة داخل النافذة</h4>
+          <ul class="nav-events" id="simEvents"></ul>
+          <p class="lab-note">
+            الأحداث مشتقة من عبور الحافة العليا للجسم لأفق التضاريس. تُستبعد أحداث طرف النافذة لأن بدايتها أو نهايتها الحقيقية خارج نطاق المحاكاة.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HORIZON ================= -->
+    <section class="nav-panel" id="panel-horizon" role="tabpanel" aria-labelledby="tab-horizon" data-panel="horizon" hidden>
+      <div class="nav-grid-2">
+        <div class="lab-panel">
+          <h4>الأفق التضاريسي 360° والاتجاهات السماوية</h4>
+          <div class="canvas-wrap nav-polar"><canvas id="horizonPolar" aria-label="رسم قطبي للأفق التضاريسي واتجاه الشمس والأرض"></canvas></div>
+          <div class="nav-legend">
+            <span><i class="line horizon"></i> أفق التضاريس</span>
+            <span><i class="dot sun"></i> الشمس</span>
+            <span><i class="dot earth"></i> الأرض</span>
+            <span><i class="line selected"></i> اتجاه مختار</span>
+          </div>
+          <p class="lab-note" id="horizonSource">—</p>
+        </div>
+        <div class="lab-panel">
+          <h4>لماذا محجوب؟</h4>
+          <div class="table-wrap">
+            <table class="data-table nav-table">
+              <thead><tr><th>الجسم</th><th>السمت</th><th>الارتفاع</th><th>الأفق</th><th>الفرق</th><th>الحالة</th></tr></thead>
+              <tbody id="horizonBodyTable"></tbody>
+            </table>
+          </div>
+          <div class="nav-horizon-control">
+            <label for="horizonAz">اتجاه الفحص</label>
+            <input type="range" id="horizonAz" min="0" max="359" step="1" value="0">
+            <output id="horizonAzOut" class="mono">0°</output>
+          </div>
+          <div class="readout-grid nav-readouts-3" id="horizonAzDetails">
+            <div class="readout"><small>السمت</small><b id="hAz">—</b></div>
+            <div class="readout"><small>أفق التضاريس</small><b id="hEl">—</b></div>
+            <div class="readout"><small>المسافة / الارتفاع</small><b id="hDist">—</b></div>
+          </div>
+          <p class="lab-note" id="horizonPolicyNote">
+            الأفق محسوب من DEM بعد خفض الدقة إلى 20 m/بكسل في المتصفح، بخطوة شعاعية 10 m حتى 9 km، مع تصحيح انحناء كروي.
+            لا يوجد انكسار جوي على القمر. دقة السمت 1° تعني أن التضاريس القريبة قد تتغير داخل الشعاع.
+          </p>
+        </div>
+      </div>
+      <div class="lab-panel" style="margin-top:14px">
+        <h4>مقطع الأفق حسب السمت</h4>
+        <div class="canvas-wrap nav-horizon-strip"><canvas id="horizonProfile" aria-label="مقطع الأفق التضاريسي حسب السمت"></canvas></div>
+        <p class="lab-note">الخط الأفقي 0° هو الأفق الهندسي. القيم السالبة تعني أن التضاريس المحيطة أخفض من الأفق الهندسي عند المراقب.</p>
+      </div>
+    </section>
+
+    <!-- ================= TIMELINE ================= -->
+    <section class="nav-panel" id="panel-timeline" role="tabpanel" aria-labelledby="tab-timeline" data-panel="timeline" hidden>
+      <div class="lab-panel">
+        <div class="nav-timeline-head">
+          <div>
+            <h4>الخط الزمني التشغيلي الموحّد</h4>
+            <p class="lab-note">كل الطبقات مشتقة من المحاكاة نفسها. اضغط على الشريط لتحديد زمن؛ يتزامن مع المحاكي والأفق.</p>
+          </div>
+          <div class="nav-timeline-controls">
+            <button class="btn btn-ghost btn-sm" type="button" id="tlZoomIn" aria-label="تكبير">＋</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="tlZoomOut" aria-label="تصغير">−</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="tlReset">إعادة الضبط</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="tlPlay" aria-pressed="false">▶ تشغيل</button>
+          </div>
+        </div>
+        <div class="canvas-wrap nav-timeline"><canvas id="timelineCanvas" aria-label="خط زمني متعدد الطبقات للشمس والأرض والطاقة"></canvas></div>
+        <div class="nav-legend" id="timelineLegend"></div>
+        <div class="nav-timeline-foot">
+          <span class="mono" id="timelineRange">—</span>
+          <span class="mono" id="timelineSelected">—</span>
+        </div>
+      </div>
+      <div class="nav-grid-2" style="margin-top:14px">
+        <div class="lab-panel">
+          <h4>تفاصيل اللحظة المحددة</h4>
+          <div class="readout-grid nav-readouts-4" id="timelineDetails"></div>
+          <p class="lab-note" id="timelineIntervalNote">—</p>
+        </div>
+        <div class="lab-panel">
+          <h4>ملخص النوافذ</h4>
+          <div class="table-wrap">
+            <table class="data-table nav-table">
+              <thead><tr><th>الطبقة</th><th>الإجمالي</th><th>النسبة</th><th>أطول انقطاع داخلي</th><th>عدد النوافذ</th></tr></thead>
+              <tbody id="timelineSummary"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="lab-panel" style="margin-top:14px">
+        <div class="nav-table-head">
+          <h4>النوافذ الزمنية</h4>
+          <button class="btn btn-ghost btn-sm" type="button" id="downloadCsv">تنزيل CSV</button>
+        </div>
+        <div class="table-wrap nav-table-scroll">
+          <table class="data-table nav-table">
+            <thead><tr><th>الطبقة</th><th>البداية</th><th>النهاية</th><th>المدة</th><th>طرف النافذة؟</th></tr></thead>
+            <tbody id="timelineTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DELAY ================= -->
+    <section class="nav-panel" id="panel-delay" role="tabpanel" aria-labelledby="tab-delay" data-panel="delay" hidden>
+      <div class="lab-panel">
+        <div class="nav-delay-head">
+          <div>
+            <h4>ماذا لو تأخرت المهمة؟</h4>
+            <p class="lab-note">السيناريو A هو نافذة المحاكاة الحالية. اختر تأخيرًا أو موقعًا بديلًا للسيناريو B.</p>
+          </div>
+          <div class="nav-delay-controls">
+            <div class="segmented" id="delayPresets" role="group" aria-label="تأخير جاهز">
+              <button type="button" data-delay="24" class="is-active">24 ساعة</button>
+              <button type="button" data-delay="48">48 ساعة</button>
+              <button type="button" data-delay="72">72 ساعة</button>
+              <button type="button" data-delay="custom">مخصص</button>
+            </div>
+            <div class="field nav-delay-hours"><label for="delayHours">ساعات التأخير</label><input type="number" id="delayHours" min="0" max="720" step="1" value="24"></div>
+            <div class="field nav-delay-site"><label for="delaySiteB">موقع السيناريو B</label><select id="delaySiteB"></select></div>
+            <button class="btn btn-primary" type="button" id="delayRun">قارن</button>
+          </div>
+        </div>
+        <p class="lab-note" id="delayStatus">—</p>
+      </div>
+      <div class="nav-kpis nav-kpis-3" id="delayKpis" style="margin-top:14px"></div>
+      <div class="nav-grid-2" style="margin-top:14px">
+        <div class="lab-panel">
+          <h4>السيناريو A</h4>
+          <div class="canvas-wrap nav-mini"><canvas id="delayTimelineA" aria-label="خط زمني للسيناريو الأصلي"></canvas></div>
+          <div class="readout-grid nav-readouts-4" id="delayReadoutA"></div>
+        </div>
+        <div class="lab-panel">
+          <h4>السيناريو B</h4>
+          <div class="canvas-wrap nav-mini"><canvas id="delayTimelineB" aria-label="خط زمني لسيناريو التأخير"></canvas></div>
+          <div class="readout-grid nav-readouts-4" id="delayReadoutB"></div>
+        </div>
+      </div>
+      <div class="lab-panel" style="margin-top:14px">
+        <h4>ما الذي تغيّر ولماذا؟</h4>
+        <ul class="nav-notes" id="delayNotes"></ul>
+        <p class="lab-note">
+          الفروق محسوبة من سلسلة النتائج نفسها. النسبة المئوية لا تُعرض عندما تكون القيمة الأساسية صفرًا.
+          التأخير لا يعني بالضرورة نتيجة أسوأ؛ قد ينتقل الموقع إلى نافذة إضاءة أو اتصال مختلفة.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= COMPARE ================= -->
+    <section class="nav-panel" id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" data-panel="compare" hidden>
+      <div class="lab-panel">
+        <div class="nav-compare-head">
+          <div>
+            <h4>مقارنة المواقع تحت السيناريو نفسه</h4>
+            <p class="lab-note">اختر موقعين على الأقل. كل المواقع تستخدم تاريخ البداية والمدة والفاصل الزمني الحاليين.</p>
+          </div>
+          <div class="nav-compare-controls">
+            <div class="nav-checks" id="compareSites"></div>
+            <div class="segmented" id="compareProfile" role="group" aria-label="أولوية المهمة">
+              <button type="button" data-profile="power">الطاقة</button>
+              <button type="button" data-profile="comm">الاتصال</button>
+              <button type="button" data-profile="balanced" class="is-active">متوازنة</button>
+            </div>
+            <button class="btn btn-primary" type="button" id="compareRun">قارن</button>
+          </div>
+        </div>
+      </div>
+      <div class="nav-grid-2" style="margin-top:14px">
+        <div class="lab-panel">
+          <h4>القياسات الجانبية</h4>
+          <div class="table-wrap nav-table-scroll">
+            <table class="data-table nav-table" id="compareTable">
+              <thead><tr><th>المقياس</th><th>الموقع A</th><th>الموقع B</th><th>الموقع C</th></tr></thead>
+              <tbody id="compareBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="lab-panel">
+          <h4>درجة ملاءمة قابلة للتفسير</h4>
+          <div id="compareScores" class="nav-scores"></div>
+          <p class="lab-note" id="compareNote">—</p>
+        </div>
+      </div>
+      <div class="lab-panel" style="margin-top:14px">
+        <h4>الأوزان والمعايير</h4>
+        <div class="table-wrap">
+          <table class="data-table nav-table">
+            <thead><tr><th>المعيار</th><th>الاتجاه</th><th>الوزن بعد التطبيع</th><th>المدى داخل المجموعة</th><th>ملاحظة</th></tr></thead>
+            <tbody id="compareWeights"></tbody>
+          </table>
+        </div>
+        <p class="lab-note">
+          الدرجة نسبية داخل المواقع المختارة فقط، وتُعاد المعايرة إذا غاب معيار. لا تُقارن درجات من جولات مختلفة.
+          «اكتمال البيانات» يقيّم توفر التضاريس ودقتها، وليس جودة الموقع نفسه.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= ENGINEERING ================= -->
+    <section class="nav-panel" id="panel-engineering" role="tabpanel" aria-labelledby="tab-engineering" data-panel="engineering" hidden>
+      <div class="nav-grid-2">
+        <div class="lab-panel">
+          <h4>تقدير الطاقة الشمسية (اختياري)</h4>
+          <div class="nav-form-grid">
+            <div class="field"><label for="pwArea">مساحة المصفوفة (m²)</label><input type="number" id="pwArea" value="4" min="0.1" step="0.1"></div>
+            <div class="field"><label for="pwEff">كفاءة الخلية (%)</label><input type="number" id="pwEff" value="29" min="1" max="50" step="1"></div>
+            <div class="field"><label for="pwPacking">نسبة التعبئة (%)</label><input type="number" id="pwPacking" value="90" min="10" max="100" step="1"></div>
+            <div class="field"><label for="pwTilt">ميل اللوح (°)</label><input type="number" id="pwTilt" value="60" min="0" max="90" step="1"></div>
+            <div class="field"><label for="pwAz">سمت اللوح (°)</label><input type="number" id="pwAz" value="180" min="0" max="360" step="1"></div>
+            <div class="field"><label for="pwLoss">خسائر النظام (%)</label><input type="number" id="pwLoss" value="20" min="0" max="90" step="1"></div>
+            <div class="field"><label for="pwBattery">سعة البطارية (Wh)</label><input type="number" id="pwBattery" value="10000" min="0" step="100"></div>
+            <div class="field"><label for="pwInitial">الشحن الابتدائي (%)</label><input type="number" id="pwInitial" value="100" min="0" max="100" step="1"></div>
+            <div class="field"><label for="pwLoad">حمل مستمر (W)</label><input type="number" id="pwLoad" value="300" min="0" step="10"></div>
+            <div class="field"><label for="pwBasis">أساس الإضاءة</label><select id="pwBasis"><option value="terrain">تضاريس إن توفرت</option><option value="geometric">هندسي فقط</option></select></div>
+          </div>
+          <div class="nav-actions"><button class="btn btn-primary" type="button" id="pwRun">احسب الطاقة</button></div>
+          <p class="lab-note">الافتراضات أعلاه <b>مثال توضيحي</b> وليست معاملات مهمة حقيقية. الإشعاع الساقط يُحسب عند مسافة الشمس الفعلية؛ لا يوجد انتثار أو انعكاس أرضي.</p>
+        </div>
+        <div class="lab-panel">
+          <h4>نتيجة الطاقة</h4>
+          <div class="readout-grid nav-readouts-3" id="pwResults"></div>
+          <div class="canvas-wrap nav-chart"><canvas id="pwChart" aria-label="القدرة الشمسية والبطارية خلال السيناريو"></canvas></div>
+          <p class="lab-note" id="pwNote">—</p>
+        </div>
+      </div>
+
+      <div class="nav-grid-2" style="margin-top:14px">
+        <div class="lab-panel">
+          <h4>ميزانية وصلة مبسطة (اختياري)</h4>
+          <div class="nav-form-grid">
+            <div class="field"><label for="lkPower">قدرة الإرسال (W)</label><input type="number" id="lkPower" value="20" min="0.001" step="1"></div>
+            <div class="field"><label for="lkFreq">التردد (MHz)</label><input type="number" id="lkFreq" value="8400" min="1" step="10"></div>
+            <div class="field"><label for="lkGtx">كسب الإرسال (dBi)</label><input type="number" id="lkGtx" value="35" step="0.5"></div>
+            <div class="field"><label for="lkGrx">كسب الاستقبال (dBi)</label><input type="number" id="lkGrx" value="40" step="0.5"></div>
+            <div class="field"><label for="lkLoss">خسائر النظام (dB)</label><input type="number" id="lkLoss" value="3" min="0" step="0.5"></div>
+            <div class="field"><label for="lkPointing">خسارة التوجيه (dB)</label><input type="number" id="lkPointing" value="0" min="0" step="0.5"></div>
+            <div class="field"><label for="lkThreshold">عتبة الاستقبال (dBm)</label><input type="number" id="lkThreshold" value="-160" step="1"></div>
+            <div class="field"><label for="lkDistance">المسافة (km)</label><input type="number" id="lkDistance" value="384400" min="1" step="1000"></div>
+          </div>
+          <div class="nav-actions"><button class="btn btn-primary" type="button" id="lkRun">احسب الوصلة</button></div>
+          <p class="lab-note">FSPL = 20 log₁₀(d_km) + 20 log₁₀(f_MHz) + 32.44778. النتيجة «ممكنة» تعني أن الهامش ≥ 0 فقط، وليست إثباتًا لنجاح اتصال.</p>
+        </div>
+        <div class="lab-panel">
+          <h4>نتيجة الوصلة</h4>
+          <div class="readout-grid nav-readouts-3" id="lkResults"></div>
+          <p class="lab-note" id="lkNote">—</p>
+          <h4 style="margin-top:14px">حدود الاستخدام</h4>
+          <ul class="nav-warnings">
+            <li>لا يحسب الضوضاء أو معدل البيانات أو الترميز أو Doppler أو الأرصاد الجوية.</li>
+            <li>رؤية الأرض هندسيًا لا تضمن أن الهوائي موجّه أو أن الوصلة مصممة بشكل صحيح.</li>
+            <li>المسافة تتغير مع الزمن؛ استخدم مسافة السيناريو أو أدخل مسافة أسوأ حالة.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= METHOD ================= -->
+    <section class="nav-panel nav-method" id="panel-method" role="tabpanel" aria-labelledby="tab-method" data-panel="method" hidden>
+      <div class="nav-grid-2">
+        <article class="lab-panel">
+          <h4>1 · البيانات ومصادرها</h4>
+          <table class="data-table nav-table">
+            <tbody>
+              <tr><th>الشمس والأرض</th><td>بيانات <span dir="ltr">JPL Horizons</span> <span dir="ltr">topocentric</span> لثلاث نقاط، خطوة ساعة، <span dir="ltr">2026-11-01 → 2027-11-01 UTC</span>. <a href="sources.html#s9">S9</a></td></tr>
+              <tr><th>التضاريس</th><td>بيانات <span dir="ltr">LOLA</span> بدقة <span dir="ltr">5 m/px</span> من <span dir="ltr">NASA GSFC/PGDA</span>، مخفّضة إلى <span dir="ltr">20 m/px</span> في المتصفح. <a href="sources.html#s10">S10</a></td></tr>
+              <tr><th>الأفق</th><td>سمت بخطوة <span dir="ltr">1°</span>، وخطوة مسافة <span dir="ltr">10 m</span> حتى <span dir="ltr">9 km</span>، مع تصحيح انحناء كروي <span dir="ltr">d²/(2R)</span> دون انكسار.</td></tr>
+              <tr><th>الإحداثيات</th><td>إحداثيات <span dir="ltr">Seleneographic</span> جنوبية؛ الإطار الداخلي <span dir="ltr">LMN south-polar</span> مطابق للسلسلة المرجعية.</td></tr>
+              <tr><th>الزمن</th><td>التوقيت الداخلي <span dir="ltr">UTC</span>. العرض المحلي لا يغيّر الحساب. لا تُستخدم <span dir="ltr">TDB/ET</span> في هذه النسخة.</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="lab-panel">
+          <h4>2 · المعادلات الأساسية</h4>
+          <div class="nav-equations">
+            <p><span class="mono">visible_geom</span> = h + r<sub>angular</sub> &gt; 0°</p>
+            <p><span class="mono">visible_terrain</span> = h + r<sub>angular</sub> &gt; h<sub>horizon</sub>(az)</p>
+            <p><span class="mono">h<sub>horizon</sub>(az)</span> = max<sub>d</sub> atan2(z(d) − z<sub>obs</sub> − d²/(2R), d)</p>
+            <p><span class="mono">FSPL</span> = 20 log₁₀(d<sub>km</sub>) + 20 log₁₀(f<sub>MHz</sub>) + 32.44778</p>
+            <p><span class="mono">P<sub>elec</sub></span> = G · A · η · packing · cos(θ<sub>inc</sub>) · (1 − loss)</p>
+          </div>
+          <p class="lab-note">r<sub>angular</sub> للشمس 0.266° عند 1 AU، وللأرض نحو 0.90–1.03° حسب المسافة. الحافة العليا هي criterion.</p>
+        </article>
+      </div>
+
+      <div class="nav-grid-2" style="margin-top:14px">
+        <article class="lab-panel">
+          <h4>3 · التحقق من تحويل الإحداثيات</h4>
+          <p class="lab-note">نُعيد بناء اتجاه الجسم في إطار القمر من سلسلة موقع مرجعي، ثم نعيد إسقاطه إلى موقع آخر ونقارن بالسلسلة المستقلة لذلك الموقع.</p>
+          <table class="data-table nav-table">
+            <thead><tr><th>الزوج</th><th>أقصى خطأ سمت</th><th>أقصى خطأ ارتفاع</th><th>العينات</th></tr></thead>
+            <tbody id="methodValidation"></tbody>
+          </table>
+          <p class="lab-note">الخطأ ناتج أساسًا عن تقريب السمت إلى 0.1° في الملفات المصدر. هذا يبرر استخدام التحويل للإحداثيات المخصصة داخل المنطقة القطبية الجنوبية فقط.</p>
+          <p class="lab-note">اختبارات المحرك الآلية: <span dir="ltr">15/15</span> ناجحة (<span dir="ltr">node --test _src/tests/navigator.test.cjs</span>)، وتُشغَّل قبل البناء في النشر.</p>
+        </article>
+        <article class="lab-panel">
+          <h4>4 · سياسة الإحداثيات المخصصة</h4>
+          <ul class="nav-warnings">
+            <li>المدى المدعوم: خط عرض −90° إلى −60°. خارجه لا يُستخدم تحويل الإطار الجنوبي.</li>
+            <li>الهندسة السماوية مشتقة من بيانات JPL حقيقية، لا من نموذج مُختلق.</li>
+            <li>التضاريس تُحسب فقط داخل نافذتي DEM المشحونتين (Site01 وSite04)؛ وإلا فتُعطَّل نتائج التضاريس.</li>
+            <li>الأفق المخصص يُحسب من DEM بدقة 20 m/px في المتصفح؛ قد يختلف عن أفق 5 m المرجعي.</li>
+            <li>لا تُستخدم نتائج الإحداثيات المخصصة لإصدار حكم «أفضل موقع» دون مراجعة بشرية.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="nav-grid-2" style="margin-top:14px">
+        <article class="lab-panel">
+          <h4>5 · الحالات والبيانات الناقصة</h4>
+          <ul class="nav-warnings">
+            <li><b>visible:</b> الحافة العليا فوق التضاريس.</li>
+            <li><b>obstructed:</b> فوق الأفق الهندسي لكن التضاريس تحجبها.</li>
+            <li><b>below:</b> تحت الأفق الهندسي.</li>
+            <li><b>geometric:</b> لا يوجد DEM؛ الرؤية هندسية فقط، ونتائج التضاريس <b>غير متاحة</b> لا صفر.</li>
+          </ul>
+          <p class="lab-note">لا تُعرض «نسبة تضاريس» عند غياب DEM. الطبقات غير القابلة للحساب تُظهر «غير متاح» ولا تُملأ بقيم افتراضية.</p>
+        </article>
+        <article class="lab-panel">
+          <h4>6 · البيانات الاصطناعية والادعاءات</h4>
+          <ul class="nav-warnings">
+            <li>لا تُستخدم بيانات اصطناعية في نتائج هذه النسخة؛ البيانات المعروضة حقيقية أو مشتقة منها.</li>
+            <li>لا توجد ادعاءات دقة تتجاوز التحقق الموثق. دقة الأفق 1°، والزمن 10–60 دقيقة حسب اختيارك.</li>
+            <li>الطاقة والوصلة تقديرات هندسية تعليمية، وليست تصميمًا لمهمة أو ضمانًا للبقاء.</li>
+            <li>النقاط الثلاث نقاط تحليل مشتقة من LOLA وليست مواقع هبوط رسمية أو مرشحة من ناسا.</li>
+          </ul>
+          <p class="lab-note">الإصدار <span class="mono" id="methodVersion">—</span> · لقطة البيانات <span class="mono">2026-11-04</span> · كل النتائج قابلة لإعادة الحساب من المدخلات نفسها.</p>
+        </article>
+      </div>
+
+      <article class="lab-panel" style="margin-top:14px">
+        <h4>7 · عقد البيانات الداخلي (مبسّط)</h4>
+        <pre class="nav-code"><code>LandingSite   { site_id, name, lat, lon, elevation_m, frame, source, confidence }
+CelestialObs  { timestamp_utc, target, site_id, frame, azimuth_deg, elevation_deg, distance_km, source }
+TerrainHorizon{ site_id, azimuth_deg[360], horizon_el_deg[360], dem_source, resolution_m }
+Visibility    { site_id, target, start_utc, end_utc, type, method }
+Scenario      { scenario_id, site_id, start_utc, duration_h, step_min, priorities }</code></pre>
+        <p class="lab-note">هذا العقد مستقل عن صيغة المصدر. محولات CSV/JSON تُتحقق من الوحدات والزمن والاتساق قبل دخولها المحرك.</p>
+      </article>
+    </section>
+  </div>
+
+  <noscript><div class="error-box">المُوجِّه التفاعلي يحتاج JavaScript. الصفحة التوثيقية والمصادر تبقى قابلة للقراءة.</div></noscript>
+</div>

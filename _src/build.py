@@ -115,6 +115,10 @@ PAGES = [
          title="المختبرات التفاعلية", kicker="LABS · جرّب بنفسك",
          lead="أفق حقيقي من LOLA، شمس وأرض من Horizons، وحاسبات شفافة. لا صور مرسومة.",
          desc="15 مكوّنًا تفاعليًا: مستكشف المواقع، الأفق التضاريسي، الشمس والأرض، الطاقة، الاتصالات، والمزيد."),
+    dict(slug="navigator", file="navigator.html", nav="navigator", section="", toc=False, hero=False,
+         title="مُوجِّه المهمة القمرية", kicker="MISSION NAVIGATOR · مساحة قرار واحدة",
+         lead="محاكاة مهمة، أفق 360°، تحليل تأخير، مقارنة مواقع، وخط زمني تشغيلي — في مساحة واحدة.",
+         desc="مساحة قرار متكاملة لمهمة قمرية: محاكاة الإضاءة ورؤية الأرض، التضاريس، التأخير، مقارنة المواقع، والطاقة والوصلة."),
     dict(slug="sources", file="sources.html", nav="sources", section="", toc=True,
          title="المصادر والمراجع", kicker="SOURCES · كل ادعاء له عنوان",
          lead="قائمة كاملة بالمصادر الرسمية والبيانات والأدوات، مع تاريخ الوصول ونوع كل مصدر.",
@@ -128,6 +132,7 @@ PAGE_MAP = {p["slug"]: p for p in PAGES}
 
 NAV = [
     {"label": "الرئيسية", "slug": "index"},
+    {"label": "المُوجِّه", "slug": "navigator"},
     {"label": "التحدي", "slug": "challenge", "children": ["challenge", "clps", "landscape"]},
     {"label": "العلم", "slug": "science", "children": ["science", "coordinates", "models", "power-comms"]},
     {"label": "البيانات", "slug": "datasets", "children": ["datasets", "data-engineering"]},
